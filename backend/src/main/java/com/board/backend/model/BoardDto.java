@@ -1,5 +1,7 @@
 package com.board.backend.model;
 
+import com.board.backend.common.AppConstants;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,9 @@ public class BoardDto {
         private String writer;
         private long view_count;
         private Long created_id;
+        @JsonFormat(pattern = AppConstants.DATETIME_FORMAT)
         private LocalDateTime created_dt;
+        @JsonFormat(pattern = AppConstants.DATETIME_FORMAT)
         private LocalDateTime modified_dt;
     }
 
@@ -32,6 +36,7 @@ public class BoardDto {
     @Getter
     @Setter
     public static class Create {
+        private Long id;
         private String title;
         private String content;
         private String writer;

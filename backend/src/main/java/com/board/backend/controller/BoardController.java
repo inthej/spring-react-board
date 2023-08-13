@@ -5,6 +5,7 @@ import com.board.backend.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,16 +33,22 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody BoardDto.Create form) {
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        final BoardDto.Response response = boardService.insert(form);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@RequestBody BoardDto.Update form) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity update(@PathVariable long id, @RequestBody BoardDto.Update form) {
+        BoardDto.Response response = boardService.update(id, form);
+        return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable long id) {
-        return ResponseEntity.ok().build();
+        final BoardDto.Response response = boardService.delete(id);
+        if (ObjectUtils.isEmpty(response)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.ok().body(response);
     }
 }

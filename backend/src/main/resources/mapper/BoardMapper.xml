@@ -4,10 +4,25 @@
 
 <mapper namespace="com.board.backend.mapper.BoardMapper">
 
-    <select id="findById" resultType="com.board.backend.model.BoardDto$Response">
+    <select id="selectById" resultType="com.board.backend.model.BoardDto$Response">
         SELECT *
         FROM board
         WHERE id = #{id}
     </select>
 
+    <insert id="insert" parameterType="com.board.backend.model.BoardDto$Create" keyProperty="form.id" useGeneratedKeys="true">
+        INSERT INTO board (title, content, writer, password, created_id)
+        VALUES (#{form.title}, #{form.content}, #{form.writer}, #{form.password}, #{form.created_id})
+    </insert>
+
+    <update id="update" parameterType="com.board.backend.model.BoardDto$Update">
+        UPDATE board
+        SET title=#{form.title}, content=#{form.content}, writer=#{form.writer}, password=#{form.password}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM board
+        WHERE id = #{id}
+    </delete>
 </mapper>
