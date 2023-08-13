@@ -28,6 +28,9 @@ public class BoardController {
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable long id) {
         final BoardDto.Response response = boardService.get(id);
+        if (ObjectUtils.isEmpty(response)) {
+            return ResponseEntity.ok().build();
+        }
         return ResponseEntity.ok().body(response);
     }
 

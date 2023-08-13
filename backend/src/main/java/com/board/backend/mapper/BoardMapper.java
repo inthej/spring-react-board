@@ -14,5 +14,5 @@ public interface BoardMapper {
 
     void update(@Param("id") long id, @Param("form") BoardDto.Update form);
 
-    void delete(@Param("id") long id);
+    void deleteById(@Param("id") long id);
 }

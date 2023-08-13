@@ -5,7 +5,6 @@ import com.board.backend.model.BoardDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -36,10 +35,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardDto.Response delete(long id) {
         final BoardDto.Response response = boardMapper.selectById(id);
-        if (ObjectUtils.isEmpty(response)) {
-            return response;
-        }
-        boardMapper.delete(id);
+        boardMapper.deleteById(id);
         return response;
     }
 }
