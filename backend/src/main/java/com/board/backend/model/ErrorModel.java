@@ -27,18 +27,15 @@ public class ErrorModel {
     }
 
     public static ErrorModel of(ErrorCode code, Exception ex) {
-        final String exceptionMessage = ObjectUtil.nonEmpty(ex) ? ex.getMessage()
-                                                                : null;
-        final String stackTrace = ObjectUtil.nonEmpty(ex) ? getStackTraceAsString(ex)
-                                                          : null;
-        final ExceptionInfo info = (StringUtil.nonEmpty(exceptionMessage) || StringUtil.nonEmpty(stackTrace)) ? ExceptionInfo.of(exceptionMessage, stackTrace)
-                                                                                                              : null;
+        final String exceptionMessage = ObjectUtil.nonEmpty(ex) ? ex.getMessage() : null;
+        final String stackTrace = ObjectUtil.nonEmpty(ex) ? getStackTraceAsString(ex) : null;
+        final ExceptionInfo info = (StringUtil.nonEmpty(exceptionMessage) || StringUtil.nonEmpty(stackTrace)) ? ExceptionInfo.of(exceptionMessage, stackTrace) : null;
         return ErrorModel.of(code.name(), code.getMessage(), info);
     }
 
     private static String getStackTraceAsString(Exception ex) {
         final StringBuilder sb = new StringBuilder();
-        for (StackTraceElement element : ex.getStackTrace()) {
+        for (final StackTraceElement element : ex.getStackTrace()) {
             sb.append(element.toString());
             sb.append("\n");
         }
