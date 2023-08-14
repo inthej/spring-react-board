@@ -29,6 +29,14 @@ public class ErrorModel {
         private String stackTrace;
     }
 
+    public static ErrorModel of(ErrorCode code) {
+        return ErrorModel.of(code.name(), code.getMessage(), null);
+    }
+
+    public static ErrorModel of(ErrorCode code, String message) {
+        return ErrorModel.of(code.name(), message, null);
+    }
+
     public static ErrorModel of(ErrorCode code, Exception ex) {
         final String exceptionMessage = ObjectUtil.nonEmpty(ex) ? ex.getMessage() : null;
         final String stackTrace = ObjectUtil.nonEmpty(ex) ? getStackTraceAsString(ex) : null;
