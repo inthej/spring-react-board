@@ -1,11 +1,12 @@
 package com.board.backend.controller;
 
 import com.board.backend.model.BoardDto;
+import com.board.backend.common.ErrorCode;
+import com.board.backend.model.ResponseModel;
 import com.board.backend.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,30 +29,36 @@ public class BoardController {
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable long id) {
         final BoardDto.Response response = boardService.get(id);
-        if (ObjectUtils.isEmpty(response)) {
-            return ResponseEntity.ok().build();
+        if (response == null) {
+            final ResponseModel responseModel = ResponseModel.of(false, ErrorCode.BOARD_NOT_FOUND);
+            return ResponseEntity.ok().body(responseModel);
         }
-        return ResponseEntity.ok().body(response);
+        final ResponseModel<BoardDto.Response> responseModel = ResponseModel.of(true, response);
+        return ResponseEntity.ok().body(responseModel);
     }
 
     @PostMapping
     public ResponseEntity create(@RequestBody BoardDto.Create form) {
         final BoardDto.Response response = boardService.insert(form);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        final ResponseModel<BoardDto.Response> responseModel = ResponseModel.of(true, response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseModel);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity update(@PathVariable long id, @RequestBody BoardDto.Update form) {
-        BoardDto.Response response = boardService.update(id, form);
-        return ResponseEntity.ok().body(response);
+        final BoardDto.Response response = boardService.update(id, form);
+        final ResponseModel<BoardDto.Response> responseModel = ResponseModel.of(true, response);
+        return ResponseEntity.ok().body(responseModel);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable long id) {
         final BoardDto.Response response = boardService.delete(id);
-        if (ObjectUtils.isEmpty(response)) {
-            return ResponseEntity.ok().build();
+        if (response == null) {
+            final ResponseModel responseModel = ResponseModel.of(false, ErrorCode.BOARD_NOT_FOUND);
+            return ResponseEntity.ok().body(responseModel);
         }
-        return ResponseEntity.ok().body(response);
+        final ResponseModel<BoardDto.Response> responseModel = ResponseModel.of(true, response);
+        return ResponseEntity.ok().body(responseModel);
     }
 }
