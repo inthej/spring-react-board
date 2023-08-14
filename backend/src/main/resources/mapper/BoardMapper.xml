@@ -21,7 +21,7 @@
         WHERE id=#{id}
     </update>
 
-    <delete id="delete" parameterType="long">
+    <delete id="deleteById" parameterType="long">
         DELETE FROM board
         WHERE id = #{id}
     </delete>
