@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
 @ToString
@@ -15,13 +18,13 @@ import lombok.ToString;
 public class ErrorModel {
     private String code;
     private String message;
-    private ExceptionInfo info;
+    private ErrorData data;
 
     @Getter
     @Setter
     @ToString
     @AllArgsConstructor(staticName = "of")
-    public static class ExceptionInfo {
+    private static class ErrorData {
         private String exceptionMessage;
         private String stackTrace;
     }
@@ -29,16 +32,14 @@ public class ErrorModel {
     public static ErrorModel of(ErrorCode code, Exception ex) {
         final String exceptionMessage = ObjectUtil.nonEmpty(ex) ? ex.getMessage() : null;
         final String stackTrace = ObjectUtil.nonEmpty(ex) ? getStackTraceAsString(ex) : null;
-        final ExceptionInfo info = (StringUtil.nonEmpty(exceptionMessage) || StringUtil.nonEmpty(stackTrace)) ? ExceptionInfo.of(exceptionMessage, stackTrace) : null;
-        return ErrorModel.of(code.name(), code.getMessage(), info);
+        final boolean hasData = StringUtil.nonEmpty(exceptionMessage) || StringUtil.nonEmpty(stackTrace);
+        final ErrorData data = hasData ? ErrorData.of(exceptionMessage, stackTrace) : null;
+        return ErrorModel.of(code.name(), code.getMessage(), data);
     }
 
     private static String getStackTraceAsString(Exception ex) {
-        final StringBuilder sb = new StringBuilder();
-        for (final StackTraceElement element : ex.getStackTrace()) {
-            sb.append(element.toString());
-            sb.append("\n");
-        }
-        return sb.toString();
+        return Arrays.stream(ex.getStackTrace())
+                .map(StackTraceElement::toString)
+                .collect(Collectors.joining("\n"));
     }
 }

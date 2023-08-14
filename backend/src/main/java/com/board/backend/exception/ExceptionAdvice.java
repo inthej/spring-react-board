@@ -1,4 +1,4 @@
-package com.board.backend.config;
+package com.board.backend.exception;
 
 import com.board.backend.common.ErrorCode;
 import com.board.backend.model.ResponseModel;
@@ -29,10 +29,10 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public ResponseEntity handleValidationException(MethodArgumentNotValidException ex) {
-        final List<String> errors = ex.getBindingResult().getFieldErrors().stream()
+        final List<String> errorMessages = ex.getBindingResult().getFieldErrors().stream()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .collect(Collectors.toList());
-        final ResponseModel responseModel = ResponseModel.failure(ErrorCode.VALIDATION_FAILED, errors);
+        final ResponseModel responseModel = ResponseModel.failure(ErrorCode.VALIDATION_FAILED, errorMessages);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseModel);
     }
 }

@@ -25,16 +25,12 @@ public class ResponseModel<T> {
         return ResponseModel.of(false, null, ErrorModel.of(code.name(), code.getMessage(), null));
     }
 
-    public static ResponseModel failure(ErrorCode code, String errorMessage) {
-        return ResponseModel.of(false, null, ErrorModel.of(code.name(), errorMessage, null));
-    }
-
-    public static ResponseModel failure(ErrorCode code, List<String> errors) {
-        final String errorMessage = String.join(", ", errors);
-        return ResponseModel.of(false, null, ErrorModel.of(code.name(), errorMessage, null));
-    }
-
     public static ResponseModel failure(ErrorCode code, Exception ex) {
         return ResponseModel.of(false, null, ErrorModel.of(code, ex));
+    }
+
+    public static ResponseModel failure(ErrorCode code, List<String> errorMessages) {
+        final String message = String.join(", ", errorMessages);
+        return ResponseModel.of(false, null, ErrorModel.of(code.name(), message, null));
     }
 }
