@@ -19,9 +19,9 @@ public class AppConfig {
     @Bean
     public ObjectMapper objectMapper() {
         final ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule()); // ObjectMapper에 JavaTimeModule를 등록하여 Java 8의 LocalDate와 LocalDateTime 등의 날짜/시간 타입을 지원하게 한다.
+        objectMapper.registerModule(new JavaTimeModule()); // Java 8 날짜/시간 타입(LocalDate, LocalDateTime) 지원을 위해 JavaTimeModule 등록
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // 기본적인 날짜/시간 포맷 변경
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // 객체의 필드 값이 null인 경우, JSON 출력 시 해당 필드를 제외하게 설정합니다.
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // 필드 값이 null인 경우 JSON 출력에서 제외
         return objectMapper;
     }
 }

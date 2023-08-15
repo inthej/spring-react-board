@@ -48,6 +48,10 @@ public class BoardController {
     @PutMapping("/{id}")
     public ResponseEntity update(@PathVariable long id, @Valid @RequestBody BoardDto.Update form) {
         final BoardDto.Response response = boardService.update(id, form);
+        if (response == null) {
+            final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
+            return ResponseEntity.ok().body(responseModel);
+        }
         final ResponseModel<BoardDto.Response> responseModel = ResponseModel.success(response);
         return ResponseEntity.ok().body(responseModel);
     }

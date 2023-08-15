@@ -28,8 +28,13 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardDto.Response update(long id, BoardDto.Update form) {
+        final BoardDto.Response response = boardMapper.selectById(id);
+        if (response == null) {
+            return response;
+        }
         boardMapper.update(id, form);
-        return boardMapper.selectById(id);
+        modelMapper.map(form, response);
+        return response;
     }
 
     @Override

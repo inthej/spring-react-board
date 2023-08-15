@@ -52,7 +52,6 @@ public class BoardDto {
         private String writer;
 
         @Size(max = 255)
-        @NotBlank(message = "비밀번호를 입력하세요")
         private String password;
 
         private Long created_id;
@@ -73,7 +72,6 @@ public class BoardDto {
         private String writer;
 
         @Size(max = 255)
-        @NotBlank(message = "비밀번호를 입력하세요")
         private String password;
     }
 }
