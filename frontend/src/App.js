@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { createGlobalStyle } from 'styled-components'
+import EmptyLayout from './layouts/EmptyLayout'
+import LayoutWithComponent from './layouts/LayoutWithComponent'
+import { BoardList, BoardView, BorderAdd } from './pages/Board'
 
-function App() {
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+`
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <GlobalStyle />
+      <Helmet>
+        <title>Spring-React-Board</title>
+        <meta name="description" content="스프링 리액트 게시판"></meta>
+      </Helmet>
+      <Routes>
+        <Route path="/board" element={<LayoutWithComponent layout={EmptyLayout} component={BoardList} />} />
+        <Route path="/board/add" element={<LayoutWithComponent layout={EmptyLayout} component={BorderAdd} />} />
+        <Route path="/board/:id" element={<LayoutWithComponent layout={EmptyLayout} component={BoardView} />} />
+        <Route path="*" element={<Navigate to="/board" replace />} />
+      </Routes>
+    </>
+  )
 }
 
-export default App;
+export default App

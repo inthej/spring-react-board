@@ -1,9 +1,0 @@
-<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
-    <!-- 배경 원 -->
-    <circle cx="400" cy="400" r="400" fill="#FFD700"/>
-
-    <!-- 로고 텍스트: 인더제이 -->
-    <text x="400" y="420" font-family="Arial" font-size="140" fill="#333333" text-anchor="middle" alignment-baseline="middle">
-        INTHEJ
-    </text>
-</svg>
