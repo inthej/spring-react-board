@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Board.css'
+import ValueUtils from '../../common/utils/ValueUtils'
 
 const Board = () => {
   const navigate = useNavigate()
+  const [keyword, setKeyword] = useState()
 
+  const handleSearchChange = (e) => {
+    setKeyword(e.target.value)
+  }
   const handleSearchClick = () => {
-    // todo api call
-    // navigate('/board')
+    if (ValueUtils.empty(keyword)) {
+      return
+    }
+    navigate('/board?keyword=' + keyword)
   }
   const handleAddClick = () => {
     navigate('/board/add')
@@ -20,7 +27,7 @@ const Board = () => {
   return (
     <div className="board-container">
       <div className="board-actions">
-        <input type="text" placeholder="검색어를 입력하세요..." className="search-input" />
+        <input type="text" placeholder="검색어를 입력하세요..." className="search-input" onChange={handleSearchChange} />
         <button className="search-btn" onClick={handleSearchClick}>
           검색
         </button>
