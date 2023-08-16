@@ -1,7 +1,7 @@
 import React from 'react'
-import './BoardList.css'
+import './Board.css'
 
-const BoardList = () => {
+const Board = () => {
   return (
     <div className="board-container">
       <div className="board-actions">
@@ -47,4 +47,4 @@ const BoardList = () => {
   )
 }
 
-export default BoardList
+export default Board

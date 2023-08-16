@@ -2,9 +2,9 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
+import { LayoutWithComponent } from './layouts'
 import EmptyLayout from './layouts/EmptyLayout'
-import LayoutWithComponent from './layouts/LayoutWithComponent'
-import { BoardList, BoardView, BorderAdd } from './pages/Board'
+import { Board, BoardView, BorderAdd } from './pages/Board'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -26,7 +26,7 @@ const App = () => {
         <meta name="description" content="스프링 리액트 게시판"></meta>
       </Helmet>
       <Routes>
-        <Route path="/board" element={<LayoutWithComponent layout={EmptyLayout} component={BoardList} />} />
+        <Route path="/board" element={<LayoutWithComponent layout={EmptyLayout} component={Board} />} />
         <Route path="/board/add" element={<LayoutWithComponent layout={EmptyLayout} component={BorderAdd} />} />
         <Route path="/board/:id" element={<LayoutWithComponent layout={EmptyLayout} component={BoardView} />} />
         <Route path="*" element={<Navigate to="/board" replace />} />
