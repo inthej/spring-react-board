@@ -20,8 +20,10 @@
   margin-right: 10px;
 }
 
-.search-btn, .write-btn {
+.search-btn, .add-btn {
   padding: 5px 15px;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
 table {

@@ -1,11 +1,24 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import './BorderAdd.css'
 
 const BorderAdd = () => {
+  const navigate = useNavigate()
+  const handleCancelClick = (e) => {
+    e.preventDefault()
+    navigate(-1)
+    // todo reset
+  }
+
+  const handleSubmit = () => {
+    // todo: api call
+    navigate('/board')
+  }
+
   return (
     <div className="border-add-container">
       <h2>글쓰기</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="input-group">
           <label htmlFor="title">제목</label>
           <input type="text" id="title" placeholder="제목을 입력하세요..." />
@@ -26,9 +39,15 @@ const BorderAdd = () => {
           <textarea id="content" rows="10" placeholder="내용을 작성하세요..."></textarea>
         </div>
 
-        <button type="submit" className="submit-btn">
-          등록
-        </button>
+        <div className="form-actions">
+          <button type="button" className="cancel-btn" onClick={handleCancelClick}>
+            취소
+          </button>
+
+          <button type="submit" className="submit-btn">
+            등록
+          </button>
+        </div>
       </form>
     </div>
   )
