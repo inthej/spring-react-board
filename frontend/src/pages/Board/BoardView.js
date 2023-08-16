@@ -1,6 +1,6 @@
 import React from 'react'
+import { useAppNavigate } from '../../common/hooks'
 import './BoardView.css'
-import { useNavigate } from 'react-router-dom'
 
 const BoardView = () => {
   const post = {
@@ -11,11 +11,11 @@ const BoardView = () => {
     content: '이곳에 게시글의 상세 내용이 표시됩니다.',
   }
 
-  const navigate = useNavigate()
-  const handleBackClick = () => {
-    navigate(-1)
-  }
+  const { navigateBack } = useAppNavigate()
 
+  const handleBackClick = () => {
+    navigateBack()
+  }
   return (
     <div className="board-view-container">
       <h2 className="board-view-title">{post.title}</h2>

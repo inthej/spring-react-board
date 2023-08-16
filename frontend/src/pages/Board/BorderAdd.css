@@ -80,7 +80,7 @@ textarea {
 .input-group small {
   margin-top: 5px;
   color: #ff5c5c;
-  font-size: 0.1rem;
+  font-size: 0.8rem;
 }
 
 input[aria-invalid="true"], textarea[aria-invalid="true"] {

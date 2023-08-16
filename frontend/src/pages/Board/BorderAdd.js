@@ -1,27 +1,32 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useAppNavigate } from '../../common/hooks'
 import PromiseUtils from '../../common/utils/PromiseUtils'
 import './BorderAdd.css'
 
 const BorderAdd = () => {
-  const navigate = useNavigate()
+  const { navigateBack, navigateTo } = useAppNavigate()
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm()
+
   const handleCancelClick = (e) => {
     e.preventDefault()
-    navigate(-1)
-    // todo reset
+    navigateBack()
+    // TODO: reset
   }
 
   const onSubmit = async (data) => {
     await PromiseUtils.wait(1_000)
     alert(JSON.stringify(data))
+    navigateTo('/board')
   }
 
+  const checkAriaInvalid = (fieldError) => {
+    return isSubmitted ? !!fieldError : undefined
+  }
   return (
     <div className="border-add-container">
       <h2>글쓰기</h2>
@@ -35,7 +40,7 @@ const BorderAdd = () => {
             {...register('title', {
               required: '제목은 필수 입력입니다.',
             })}
-            aria-invalid={isSubmitted ? (errors.title ? 'true' : 'false') : undefined}
+            aria-invalid={checkAriaInvalid(errors.title)}
           />
           {errors.title && <small role="alert">{errors.title.message}</small>}
         </div>
@@ -49,7 +54,7 @@ const BorderAdd = () => {
             {...register('author', {
               required: '작성자는 필수 입력입니다.',
             })}
-            aria-invalid={isSubmitted ? (errors.author ? 'true' : 'false') : undefined}
+            aria-invalid={checkAriaInvalid(errors.author)}
           />
           {errors.author && <small role="alert">{errors.author.message}</small>}
         </div>
@@ -63,7 +68,7 @@ const BorderAdd = () => {
             {...register('password', {
               required: '비밀번호는 필수 입력입니다.',
             })}
-            aria-invalid={isSubmitted ? (errors.password ? 'true' : 'false') : undefined}
+            aria-invalid={checkAriaInvalid(errors.password)}
           />
           {errors.password && <small role="alert">{errors.password.message}</small>}
         </div>
@@ -77,7 +82,7 @@ const BorderAdd = () => {
             {...register('content', {
               required: '글 내용이 작성되지 않았습니다.',
             })}
-            aria-invalid={isSubmitted ? (errors.content ? 'true' : 'false') : undefined}
+            aria-invalid={checkAriaInvalid(errors.content)}
           ></textarea>
           {errors.content && <small role="alert">{errors.content.message}</small>}
         </div>

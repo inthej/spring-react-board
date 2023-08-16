@@ -1,29 +1,30 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import './Board.css'
+import { useAppNavigate } from '../../common/hooks'
 import ValueUtils from '../../common/utils/ValueUtils'
+import './Board.css'
 
 const Board = () => {
-  const navigate = useNavigate()
+  const { navigateTo } = useAppNavigate()
   const [keyword, setKeyword] = useState()
 
   const handleSearchChange = (e) => {
     setKeyword(e.target.value)
   }
+
   const handleSearchClick = () => {
     if (ValueUtils.empty(keyword)) {
       return
     }
-    navigate('/board?keyword=' + keyword)
+    navigateTo('/board?keyword=' + keyword)
   }
+
   const handleAddClick = () => {
-    navigate('/board/add')
+    navigateTo('/board/add')
   }
 
   const handlePostClick = (id) => {
-    navigate(`/board/${id}`)
+    navigateTo(`/board/${id}`)
   }
-
   return (
     <div className="board-container">
       <div className="board-actions">
