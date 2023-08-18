@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e8d2392-d935-46cf-afee-1c0df79903a0" name="Changes" comment="update: README.md 파일">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/common/hooks/useAppNavigate.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/common/hooks/useAppNavigate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +53,7 @@
       <workItem from="1692195999706" duration="2521000" />
       <workItem from="1692202737792" duration="245000" />
       <workItem from="1692362160663" duration="1086000" />
+      <workItem from="1692378214590" duration="15000" />
     </task>
     <task id="LOCAL-00001" summary="update: README.md 파일">
       <option name="closed" value="true" />

@@ -41,3 +41,4 @@
 - [스프링 부트 JSON 응답에서 Null 값 자동 제거하기](https://inthej.com/81)
 - [Spring Boot에서 응답 및 예외 처리 모델 구축하기](https://inthej.com/82)
 - [React Router 에서 Navigate 함수를 확장하여 사용하기](https://inthej.com/83)
+- [Spring에서 잘못된 메시지 요청 핸들링하기](https://inthej.tistory.com/84)
