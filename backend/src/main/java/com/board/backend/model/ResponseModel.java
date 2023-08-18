@@ -25,6 +25,10 @@ public class ResponseModel<T> {
         return ResponseModel.of(false, null, ErrorModel.of(code));
     }
 
+    public static ResponseModel failure(ErrorCode code, String errorMessage) {
+        return ResponseModel.of(false, null, ErrorModel.of(code, errorMessage));
+    }
+
     public static ResponseModel failure(ErrorCode code, List<String> errorMessages) {
         final String errorMessage = String.join(", ", errorMessages);
         return ResponseModel.of(false, null, ErrorModel.of(code, errorMessage));

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/board")
+@CrossOrigin(origins = "*")
 public class BoardController {
 
     @Autowired

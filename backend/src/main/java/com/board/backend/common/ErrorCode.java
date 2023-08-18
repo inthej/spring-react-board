@@ -6,11 +6,13 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
-    SERVER_ERROR("서버 오류가 발생하였습니다."),
-    ARGUMENT_TYPE_MISMATCH("전달된 파라미터 타입이 올바르지 않습니다."),
-    VALIDATION_FAILED("입력값 검증에 실패하였습니다."),
+    SERVER_ERROR("서버 오류 발생"),
+    ARGUMENT_TYPE_MISMATCH("파라미터 타입 불일치"),
+    VALIDATION_FAILED("입력값 검증 실패"),
+    INVALID_JSON("잘못된 JSON 형식"),
+    UNKNOWN_FIELD("알 수 없는 필드 전달"),
     // DB
-    BOARD_NOT_FOUND("해당 글을 찾을 수 없습니다.");
+    BOARD_NOT_FOUND("글을 찾을 수 없음");
 
     private String message;
 }

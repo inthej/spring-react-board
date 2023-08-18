@@ -1,32 +1,57 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useAppNavigate } from '../../common/hooks'
+import { useAppNavigate, useErrorHandler } from '../../common/hooks'
+import { boardService } from '../../common/services/BoardService'
 import PromiseUtils from '../../common/utils/PromiseUtils'
 import './BorderAdd.css'
 
 const BorderAdd = () => {
   const { navigateBack, navigateTo } = useAppNavigate()
+  const { error, handleError, clearError } = useErrorHandler()
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm()
 
-  const handleCancelClick = (e) => {
-    e.preventDefault()
-    navigateBack()
-    // TODO: reset
-  }
+  useEffect(() => {
+    if (error && error.message) {
+      alert(error.message)
+      clearError()
+    }
+  }, [error, clearError])
 
-  const onSubmit = async (data) => {
-    await PromiseUtils.wait(1_000)
-    alert(JSON.stringify(data))
-    navigateTo('/board')
-  }
+  const handleCancelClick = useCallback(
+    (e) => {
+      e.preventDefault()
+      navigateBack()
+    },
+    [navigateBack],
+  )
 
-  const checkAriaInvalid = (fieldError) => {
+  const onSubmit = useCallback(
+    async (data) => {
+      const payload = {
+        ...data,
+        writer: data.author,
+      }
+      delete payload.author
+
+      try {
+        await PromiseUtils.wait(1_000)
+        await boardService.create(payload)
+        navigateTo('/board')
+      } catch (err) {
+        handleError(err.response)
+      }
+    },
+    [navigateTo, handleError],
+  )
+
+  const checkAriaInvalid = useCallback((fieldError) => {
     return isSubmitted ? !!fieldError : undefined
-  }
+  }, [])
+
   return (
     <div className="border-add-container">
       <h2>글쓰기</h2>

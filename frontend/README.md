@@ -10,6 +10,7 @@ $ yarn add react-router-dom
 $ yarn add react-helmet
 $ yarn add styled-components styled-reset
 $ yarn add react-hook-form
+$ yarn add axios
 ```
 
 ## Reference
