@@ -1,9 +1,8 @@
 const AppTypes = {
-  Mode: {
+  PageMode: {
     view: 'view',
     add: 'add',
     edit: 'edit',
-    delete: 'delete',
   },
 }
 

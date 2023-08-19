@@ -14,4 +14,11 @@ export default class ValueUtils {
     }
     return str
   }
+
+  static nvl2(str, str1, str2) {
+    if (ValueUtils.empty(str)) {
+      return str2
+    }
+    return str1
+  }
 }

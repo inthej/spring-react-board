@@ -27,9 +27,8 @@ const App = () => {
       </Helmet>
       <Routes>
         <Route path="/board/list" element={<LayoutWithComponent layout={EmptyLayout} component={Board} />} />
-        <Route path="/board/:id" element={<LayoutWithComponent layout={EmptyLayout} component={BoardView} />} />
-        <Route path="/board/add" element={<LayoutWithComponent layout={EmptyLayout} component={BoardView} />} />
-        <Route path="/board/edit/:id" element={<LayoutWithComponent layout={EmptyLayout} component={BoardView} />} />
+        <Route path="/board/view/:id" element={<LayoutWithComponent layout={EmptyLayout} component={BoardView} />} />
+        <Route path="/board/:mode" element={<LayoutWithComponent layout={EmptyLayout} component={BoardView} />} />
         <Route path="*" element={<Navigate to="/board/list" replace />} />
       </Routes>
     </>

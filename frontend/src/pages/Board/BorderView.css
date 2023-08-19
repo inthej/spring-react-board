@@ -40,7 +40,7 @@ textarea {
   align-items: center;
 }
 
-.list-btn, .cancel-btn, .submit-btn {
+.list-btn, .edit-btn, .cancel-btn, .submit-btn {
   align-self: flex-end;
   padding: 10px 20px;
   color: white;
@@ -54,6 +54,10 @@ textarea {
   background-color: #ff7f7f;
 }
 
+.edit-btn {
+  background-color: #28c745;
+}
+
 .list-btn, .submit-btn {
   background-color: #007BFF;
 }
@@ -64,6 +68,10 @@ textarea {
 
 .list-btn:hover, .submit-btn:hover {
   background-color: #0056b3;
+}
+
+.edit-btn:hover {
+  background-color: #28a745;
 }
 
 .cancel-btn:disabled, .submit-btn:disabled {

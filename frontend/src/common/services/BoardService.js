@@ -1,4 +1,3 @@
-import axios from 'axios'
 import ValueUtils from '../utils/ValueUtils'
 import HttpClient from './HttpClient'
 
@@ -13,9 +12,18 @@ const BoardService = {
     const url = `${BASE_URL}/${id}`
     return await HttpClient.get(url)
   },
-  create: async (form) => await axios.post(BASE_URL, form),
-  update: async (form) => await axios.post(BASE_URL, form),
-  delete: async (id) => await HttpClient.delete(BASE_URL),
+  create: async (form) => {
+    const url = BASE_URL
+    return await HttpClient.post(url, form)
+  },
+  update: async (id, form) => {
+    const url = `${BASE_URL}/${id}`
+    return await HttpClient.put(url, form)
+  },
+  delete: async (id) => {
+    const url = BASE_URL
+    return await HttpClient.delete(url)
+  },
 }
 
 export default BoardService
