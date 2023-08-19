@@ -1,4 +1,4 @@
-.border-add-container {
+.border-view-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,7 +40,7 @@ textarea {
   align-items: center;
 }
 
-.cancel-btn, .submit-btn {
+.list-btn, .cancel-btn, .submit-btn {
   align-self: flex-end;
   padding: 10px 20px;
   color: white;
@@ -54,7 +54,7 @@ textarea {
   background-color: #ff7f7f;
 }
 
-.submit-btn {
+.list-btn, .submit-btn {
   background-color: #007BFF;
 }
 
@@ -62,7 +62,7 @@ textarea {
   background-color: #ff5c5c;
 }
 
-.submit-btn:hover {
+.list-btn:hover, .submit-btn:hover {
   background-color: #0056b3;
 }
 

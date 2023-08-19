@@ -1,62 +1,21 @@
 import axios from 'axios'
+import ValueUtils from '../utils/ValueUtils'
+import HttpClient from './HttpClient'
 
-class BoardService {
-  static #instance
-  #url = 'http://localhost:8080/board'
+const BASE_URL = 'http://localhost:8080/board'
 
-  constructor() {
-    if (BoardService.#instance) {
-      throw new Error('Use BoardService.getInstance()')
-    }
-    BoardService.#instance = this
-  }
-
-  static getInstance() {
-    if (!this.#instance) {
-      this.#instance = new BoardService()
-    }
-    return this.#instance
-  }
-
-  async get(id) {
-    try {
-      const path = `${this.#url}/${id}`
-      const response = await axios.get(path)
-      return response.data
-    } catch (err) {
-      throw err
-    }
-  }
-
-  async create(form) {
-    try {
-      const path = `${this.#url}`
-      const response = await axios.post(path, form)
-      return response.data
-    } catch (err) {
-      throw err
-    }
-  }
-
-  async update(form) {
-    try {
-      const path = `${this.#url}`
-      const response = await axios.put(path, form)
-      return response.data
-    } catch (err) {
-      throw err
-    }
-  }
-
-  async delete(id) {
-    try {
-      const path = `${this.#url}/${id}`
-      const response = await axios.delete(path)
-      return response.data
-    } catch (err) {
-      throw err
-    }
-  }
+const BoardService = {
+  list: async (keyword) => {
+    const url = ValueUtils.nonEmpty(keyword) ? `${BASE_URL}/list?keyword=${keyword}` : `${BASE_URL}/list`
+    return await HttpClient.get(url)
+  },
+  get: async (id) => {
+    const url = `${BASE_URL}/${id}`
+    return await HttpClient.get(url)
+  },
+  create: async (form) => await axios.post(BASE_URL, form),
+  update: async (form) => await axios.post(BASE_URL, form),
+  delete: async (id) => await HttpClient.delete(BASE_URL),
 }
 
-export const boardService = BoardService.getInstance()
+export default BoardService

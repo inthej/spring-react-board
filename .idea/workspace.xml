@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e8d2392-d935-46cf-afee-1c0df79903a0" name="Changes" comment="update: README.md 파일">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="7e8d2392-d935-46cf-afee-1c0df79903a0" name="Changes" comment="update: README.md 파일" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +51,7 @@
       <workItem from="1692195999706" duration="2521000" />
       <workItem from="1692202737792" duration="245000" />
       <workItem from="1692362160663" duration="1086000" />
-      <workItem from="1692378214590" duration="15000" />
+      <workItem from="1692378214590" duration="57000" />
     </task>
     <task id="LOCAL-00001" summary="update: README.md 파일">
       <option name="closed" value="true" />
@@ -71,7 +69,15 @@
       <option name="project" value="LOCAL" />
       <updated>1692202806040</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update: README.md 파일">
+      <option name="closed" value="true" />
+      <created>1692378261081</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1692378261081</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

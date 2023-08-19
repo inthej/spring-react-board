@@ -6,6 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BoardServiceImpl implements BoardService {
 
@@ -14,6 +16,11 @@ public class BoardServiceImpl implements BoardService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Override
+    public List<BoardDto.Response> list() {
+        return boardMapper.list();
+    }
 
     @Override
     public BoardDto.Response get(long id) {

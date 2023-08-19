@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/board")
 @CrossOrigin(origins = "*")
@@ -25,7 +27,9 @@ public class BoardController {
 
     @GetMapping("/list")
     public ResponseEntity list() {
-        return ResponseEntity.ok().build();
+        final List<BoardDto.Response> list = boardService.list();
+        final ResponseModel<List<BoardDto.Response>> responseModel = ResponseModel.success(list);
+        return ResponseEntity.ok().body(responseModel);
     }
 
     @GetMapping("/{id}")

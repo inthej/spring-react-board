@@ -4,6 +4,12 @@
 
 <mapper namespace="com.board.backend.mapper.BoardMapper">
 
+    <select id="list" resultType="com.board.backend.model.BoardDto$Response">
+        SELECT *
+        FROM board
+        ORDER BY id DESC
+    </select>
+
     <select id="selectById" resultType="com.board.backend.model.BoardDto$Response">
         SELECT *
         FROM board
