@@ -5,7 +5,6 @@ import { AppTypes } from '../../common'
 import { useAppNavigate, useErrorHandler } from '../../common/hooks'
 import { BoardService } from '../../common/services'
 import PromiseUtils from '../../common/utils/PromiseUtils'
-import ValueUtils from '../../common/utils/ValueUtils'
 import './BorderView.css'
 
 const BorderView = () => {
@@ -15,7 +14,7 @@ const BorderView = () => {
   // hooks
   const { navigateBack, navigateTo } = useAppNavigate()
   const { error, handleError, clearError } = useErrorHandler()
-  // react-hooks-form
+  // form
   const {
     register,
     handleSubmit,
@@ -147,7 +146,7 @@ const BorderView = () => {
             type="text"
             id="author"
             placeholder="작성자명"
-            value={ValueUtils.nvl(values.author, values.writer) || ''}
+            value={values.author || ''}
             readOnly={currentMode === AppTypes.PageMode.view}
             {...register('author', {
               required: '작성자는 필수 입력입니다.',

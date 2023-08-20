@@ -42,4 +42,4 @@
 - [Spring Boot에서 응답 및 예외 처리 모델 구축하기](https://inthej.com/82)
 - [React Router 에서 Navigate 함수를 확장하여 사용하기](https://inthej.com/83)
 - [Spring에서 잘못된 메시지 요청 핸들링하기](https://inthej.tistory.com/84)
-- [리액트 라우터 활용 페이지 모드 관리](https://inthej.tistory.com/85)
+- [동적 라우팅 사용 페이지 모드 관리](https://inthej.tistory.com/85)
