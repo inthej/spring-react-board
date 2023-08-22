@@ -54,4 +54,10 @@ public class ExceptionAdvice {
         final ResponseModel responseModel = ResponseModel.failure(ErrorCode.INVALID_JSON, ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseModel);
     }
+
+    @ExceptionHandler(value = {SqlOrderNullPointerException.class})
+    public ResponseEntity handleInvalidSqlOrderArgException(SqlOrderNullPointerException ex) {
+        final ResponseModel responseModel = ResponseModel.failure(ErrorCode.INVALID_ARGUMENT, ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseModel);
+    }
 }

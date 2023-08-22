@@ -10,13 +10,13 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
 
-    List<BoardDto.Response> list();
-    BoardDto.Response selectById(long id);
+    List<BoardDto.Response> selectBoardsWithKeyword(@Param("keyword") String keyword);
+    BoardDto.Response selectBoardById(long id);
 
     @Options(useGeneratedKeys = true, keyProperty = "form.id")
-    void insert(@Param("form") BoardDto.Create form);
+    void insertBoard(@Param("form") BoardDto.Create form);
 
-    void update(@Param("id") long id, @Param("form") BoardDto.Update form);
+    void updateBoardById(@Param("id") long id, @Param("form") BoardDto.Update form);
 
-    void deleteById(@Param("id") long id);
+    void deleteBoardById(@Param("id") long id);
 }

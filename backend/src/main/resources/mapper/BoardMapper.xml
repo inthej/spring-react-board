@@ -4,30 +4,37 @@
 
 <mapper namespace="com.board.backend.mapper.BoardMapper">
 
-    <select id="list" resultType="com.board.backend.model.BoardDto$Response">
-        SELECT *
+    <select id="selectBoardsWithKeyword" resultType="com.board.backend.model.BoardDto$Response">
+        SELECT
+            *
         FROM board
-        ORDER BY id DESC
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
     </select>
 
-    <select id="selectById" resultType="com.board.backend.model.BoardDto$Response">
+    <select id="selectBoardById" resultType="com.board.backend.model.BoardDto$Response">
         SELECT *
         FROM board
         WHERE id = #{id}
     </select>
 
-    <insert id="insert" parameterType="com.board.backend.model.BoardDto$Create" keyProperty="form.id" useGeneratedKeys="true">
+    <insert id="insertBoard" parameterType="com.board.backend.model.BoardDto$Create" keyProperty="form.id" useGeneratedKeys="true">
         INSERT INTO board (title, content, writer, password, created_id)
         VALUES (#{form.title}, #{form.content}, #{form.writer}, #{form.password}, #{form.created_id})
     </insert>
 
-    <update id="update" parameterType="com.board.backend.model.BoardDto$Update">
+    <update id="updateBoardById" parameterType="com.board.backend.model.BoardDto$Update">
         UPDATE board
-        SET title=#{form.title}, content=#{form.content}, writer=#{form.writer}, password=#{form.password}
-        WHERE id=#{id}
+        SET title=#{form.title},
+            content=#{form.content},
+            writer=#{form.writer},
+            password=#{form.password}
+        WHERE id = #{id}
     </update>
 
-    <delete id="deleteById" parameterType="long">
+    <delete id="deleteBoardById" parameterType="long">
         DELETE FROM board
         WHERE id = #{id}
     </delete>

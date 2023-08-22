@@ -26,9 +26,9 @@ public class BoardController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity list() {
-        final List<BoardDto.Response> list = boardService.list();
-        final ResponseModel<List<BoardDto.Response>> responseModel = ResponseModel.success(list);
+    public ResponseEntity list(BoardDto.RequestList form) {
+        final BoardDto.ResponseList list = boardService.list(form);
+        final ResponseModel<BoardDto.ResponseList> responseModel = ResponseModel.success(list);
         return ResponseEntity.ok().body(responseModel);
     }
 

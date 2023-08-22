@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BoardDto {
@@ -73,5 +74,19 @@ public class BoardDto {
 
         @Size(max = 255)
         private String password;
+    }
+
+    @Getter
+    @Setter
+    public static class RequestList extends PageListDto.Request {
+        private String keyword;
+    }
+
+    @Getter
+    @Setter
+    public static class ResponseList extends PageListDto.Response<BoardDto.Response> {
+        public ResponseList(long total, int pages, List<BoardDto.Response> list) {
+            super(total, pages, list);
+        }
     }
 }

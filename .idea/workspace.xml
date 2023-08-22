@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e8d2392-d935-46cf-afee-1c0df79903a0" name="Changes" comment="update: README.md 파일" />
+    <list default="true" id="7e8d2392-d935-46cf-afee-1c0df79903a0" name="Changes" comment="clean: 코드 정리, README.md 수정">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Board/Board.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Board/Board.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,6 +56,8 @@
       <workItem from="1692362160663" duration="1086000" />
       <workItem from="1692378214590" duration="57000" />
       <workItem from="1692467053524" duration="313000" />
+      <workItem from="1692490154272" duration="202000" />
+      <workItem from="1692622312078" duration="13000" />
     </task>
     <task id="LOCAL-00001" summary="update: README.md 파일">
       <option name="closed" value="true" />
@@ -86,7 +91,15 @@
       <option name="project" value="LOCAL" />
       <updated>1692467105488</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="clean: 코드 정리, README.md 수정">
+      <option name="closed" value="true" />
+      <created>1692490349080</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1692490349080</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -94,6 +107,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update: README.md 파일" />
-    <option name="LAST_COMMIT_MESSAGE" value="update: README.md 파일" />
+    <MESSAGE value="clean: 코드 정리, README.md 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean: 코드 정리, README.md 수정" />
   </component>
 </project>

@@ -35,6 +35,9 @@ dependencies {
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
 	// validation
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.1.2'
+	// pagehelper
+	implementation group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.4.7'
+
 }
 
 tasks.named('test') {
