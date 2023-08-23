@@ -18,7 +18,7 @@ public class PageListDto {
     public static abstract class Request {
         private int page;
         private int size;
-        private Sort.Column column = Sort.Column.id;
+        private Sort.Order order = Sort.Order.id;
         private Sort.Direction direction = Sort.Direction.asc;
 
         public void setPage(int page) {

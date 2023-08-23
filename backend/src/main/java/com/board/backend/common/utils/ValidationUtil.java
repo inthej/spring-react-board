@@ -1,6 +1,6 @@
 package com.board.backend.common.utils;
 
-import com.board.backend.exception.SqlOrderNullPointerException;
+import com.board.backend.exception.ValidationNullException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 public class ValidationUtil {
     public static <T> T validateNonNull(T obj, String message) {
         if (obj == null)
-            throw new SqlOrderNullPointerException(message);
+            throw new ValidationNullException(message);
         return obj;
     }
 }

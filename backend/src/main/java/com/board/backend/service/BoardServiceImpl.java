@@ -1,6 +1,7 @@
 package com.board.backend.service;
 
 import com.board.backend.common.SqlOrderBuilder;
+import com.board.backend.exception.PasswordMismatchException;
 import com.board.backend.mapper.BoardMapper;
 import com.board.backend.model.BoardDto;
 import com.github.pagehelper.PageHelper;
@@ -23,10 +24,13 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardDto.ResponseList list(BoardDto.RequestList form) {
         PageHelper.startPage(form.getPage(), form.getSize());
-        final SqlOrderBuilder order = SqlOrderBuilder.createOrder(form.getColumn(), form.getDirection());
+
+        final SqlOrderBuilder order = SqlOrderBuilder.createOrder(form.getOrder(), form.getDirection());
         PageHelper.orderBy(order.getSql());
+
         final List<BoardDto.Response> list = boardMapper.selectBoardsWithKeyword(form.getKeyword());
         final PageInfo<BoardDto.Response> pageInfo = new PageInfo<>(list);
+
         return new BoardDto.ResponseList(pageInfo.getTotal(), pageInfo.getPages(), list);
     }
 
@@ -43,13 +47,18 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardDto.Response update(long id, BoardDto.Update form) {
-        final BoardDto.Response response = boardMapper.selectBoardById(id);
-        if (response == null) {
-            return response;
+        final BoardDto.Detail detail = boardMapper.selectBoardDetailById(id);
+        if (detail == null) {
+            return null;
         }
+
+        if (!form.getPassword().equals(detail.getPassword())) {
+            throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
+        }
+
         boardMapper.updateBoardById(id, form);
-        modelMapper.map(form, response);
-        return response;
+        modelMapper.map(form, detail);
+        return modelMapper.map(detail, BoardDto.Response.class);
     }
 
     @Override

@@ -14,3 +14,11 @@ CREATE TABLE `board`
   AUTO_INCREMENT = 3
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
+
+create table t_env
+(
+    name varchar(10) not null comment '코드',
+    val  varchar(20) not null comment '값',
+    primary key (name)
+) engine InnoDB
+  DEFAULT charset = utf8 comment ='환경값';

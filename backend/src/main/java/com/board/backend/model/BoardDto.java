@@ -2,6 +2,7 @@ package com.board.backend.model;
 
 import com.board.backend.common.AppConstants;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -33,6 +34,7 @@ public class BoardDto {
     @Getter
     @Setter
     public static class Detail extends BoardDto.Response {
+        @JsonIgnore
         private String password;
     }
 

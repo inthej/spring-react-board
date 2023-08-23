@@ -15,7 +15,28 @@
     </select>
 
     <select id="selectBoardById" resultType="com.board.backend.model.BoardDto$Response">
-        SELECT *
+        SELECT id,
+               title,
+               content,
+               writer,
+               view_count,
+               created_id,
+               created_dt,
+               modified_dt
+        FROM board
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectBoardDetailById" resultType="com.board.backend.model.BoardDto$Detail">
+        SELECT id,
+               title,
+               content,
+               writer,
+               password,
+               view_count,
+               created_id,
+               created_dt,
+               modified_dt
         FROM board
         WHERE id = #{id}
     </select>

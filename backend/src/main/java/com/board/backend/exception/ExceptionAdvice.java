@@ -55,9 +55,15 @@ public class ExceptionAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseModel);
     }
 
-    @ExceptionHandler(value = {SqlOrderNullPointerException.class})
-    public ResponseEntity handleInvalidSqlOrderArgException(SqlOrderNullPointerException ex) {
+    @ExceptionHandler(value = {ValidationNullException.class})
+    public ResponseEntity handleValidationNullException(ValidationNullException ex) {
         final ResponseModel responseModel = ResponseModel.failure(ErrorCode.INVALID_ARGUMENT, ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseModel);
+    }
+
+    @ExceptionHandler(value = {PasswordMismatchException.class})
+    public ResponseEntity handlePasswordMismatchException(PasswordMismatchException ex) {
+        final ResponseModel responseModel = ResponseModel.failure(ErrorCode.PASSWORD_MISMATCH, ex.getMessage());
+        return ResponseEntity.ok(responseModel);
     }
 }

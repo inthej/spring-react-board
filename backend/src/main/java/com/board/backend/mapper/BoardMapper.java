@@ -13,6 +13,8 @@ public interface BoardMapper {
     List<BoardDto.Response> selectBoardsWithKeyword(@Param("keyword") String keyword);
     BoardDto.Response selectBoardById(long id);
 
+    BoardDto.Detail selectBoardDetailById(long id);
+
     @Options(useGeneratedKeys = true, keyProperty = "form.id")
     void insertBoard(@Param("form") BoardDto.Create form);
 

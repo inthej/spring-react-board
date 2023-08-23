@@ -1,7 +1,7 @@
 package com.board.backend.common;
 
 public interface Sort {
-    enum Column {
+    enum Order {
         id,
         title,
         content,
