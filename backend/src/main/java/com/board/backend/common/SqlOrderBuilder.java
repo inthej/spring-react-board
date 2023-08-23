@@ -7,7 +7,7 @@ public class SqlOrderBuilder {
     private final Sort.Direction direction;
 
     private SqlOrderBuilder(Sort.Order order, Sort.Direction direction) {
-        this.order = ValidationUtil.validateNonNull(order, "Column cannot be null");
+        this.order = ValidationUtil.validateNonNull(order, "Order cannot be null");
         this.direction = ValidationUtil.validateNonNull(direction, "Direction cannot be null");
     }
 
