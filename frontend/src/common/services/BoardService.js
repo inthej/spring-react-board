@@ -1,11 +1,10 @@
-import ValueUtils from '../utils/ValueUtils'
 import HttpClient from './HttpClient'
 
 const BASE_URL = 'http://localhost:8080/board'
 
 const BoardService = {
-  list: async (keyword) => {
-    const url = ValueUtils.nonEmpty(keyword) ? `${BASE_URL}/list?keyword=${keyword}` : `${BASE_URL}/list`
+  list: async (keyword, form) => {
+    const url = `${BASE_URL}/list?page=${form.page}&size=${form.size}&keyword=${keyword}`
     return await HttpClient.get(url)
   },
   get: async (id) => {

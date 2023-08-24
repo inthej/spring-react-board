@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { AppTypes } from '../../common'
+import { AppConstants, AppTypes } from '../../common'
 import { useAppNavigate, useErrorHandler } from '../../common/hooks'
 import { BoardService } from '../../common/services'
 import ValueUtils from '../../common/utils/ValueUtils'
@@ -10,26 +10,38 @@ const Board = () => {
   const { error, handleError, clearError } = useErrorHandler()
   const [keyword, setKeyword] = useState('')
   const searchInputRef = useRef(null)
-  const [list, setList] = useState([])
+  const [page] = useState({
+    page: 1,
+    size: AppConstants.DEFAULT_PAGE_SIZE,
+  })
+  const [pageList, setPageList] = useState([])
 
-  const search = useCallback(async (searchKeyword = '') => {
-    try {
-      const response = await BoardService.list(searchKeyword)
-      return response.data
-    } catch (e) {
-      throw e
-    }
-  }, [])
+  const fetchData = useCallback(
+    async (searchKeyword = '') => {
+      try {
+        const response = await BoardService.list(searchKeyword, page)
+        return response.data
+      } catch (e) {
+        throw e
+      }
+    },
+    [page],
+  )
 
   // 첫 렌더링 때 한 번만 API 호출
   useEffect(() => {
-    search()
-      .then((data) => setList(data))
+    fetchData()
+      .then((data) => setPageList(data.list))
       .catch((err) => {
-        setList([])
+        setPageList([])
         handleError(err.response)
       })
-  }, [search, handleError])
+      .finally(() => {
+        if (searchInputRef.current) {
+          searchInputRef.current.focus()
+        }
+      })
+  }, [fetchData, handleError])
 
   useEffect(() => {
     if (error && error.message) {
@@ -38,22 +50,39 @@ const Board = () => {
     }
   }, [error, clearError])
 
+  const search = useCallback(
+    async (inputKeyword) => {
+      fetchData(inputKeyword)
+        .then((data) => setPageList(data.list))
+        .catch((err) => {
+          setPageList([])
+          handleError(err.response)
+        })
+        .finally(() => {
+          if (searchInputRef.current) {
+            searchInputRef.current.focus()
+          }
+        })
+    },
+    [fetchData, handleError],
+  )
+
   const handleKeywordChange = useCallback((e) => {
     setKeyword(e.target.value)
   }, [])
 
+  const handleSearchEnter = useCallback(
+    (e) => {
+      if (e.key === 'Enter') {
+        search(keyword)
+      }
+    },
+    [keyword, search],
+  )
+
   const handleSearchClick = useCallback(async () => {
     search(keyword)
-      .then((data) => setList(data))
-      .catch((err) => {
-        setList([])
-        handleError(err.response)
-      })
-
-    if (searchInputRef.current) {
-      searchInputRef.current.focus()
-    }
-  }, [keyword, search, handleError])
+  }, [keyword, search])
 
   const handleAddClick = useCallback(() => {
     navigateTo(`/board/${AppTypes.PageMode.add}`)
@@ -65,10 +94,11 @@ const Board = () => {
     },
     [navigateTo],
   )
+
   return (
     <div className="board-container">
       <div className="board-actions">
-        <input type="text" placeholder="검색어를 입력하세요..." className="search-input" onChange={handleKeywordChange} ref={searchInputRef} />
+        <input type="text" placeholder="검색어를 입력하세요..." className="search-input" onChange={handleKeywordChange} onKeyDown={handleSearchEnter} ref={searchInputRef} />
         <button className="search-btn" onClick={handleSearchClick}>
           검색
         </button>
@@ -87,9 +117,9 @@ const Board = () => {
           </tr>
         </thead>
         <tbody>
-          {list.map((post) => (
+          {pageList.map((post) => (
             <tr onClick={() => handleRowClick(post.id)} key={post.id}>
-              <td>{post.id}</td>
+              <td>{post.rownum}</td>
               <td className="title">{ValueUtils.nvl(post.title)}</td>
               <td>{ValueUtils.nvl(post.writer)}</td>
               <td>{ValueUtils.nvl(post.created_dt)}</td>

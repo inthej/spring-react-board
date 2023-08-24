@@ -19,6 +19,7 @@ public class BoardDto {
     @Getter
     @Setter
     public static class Response {
+        private Long rownum;
         private long id;
         private String title;
         private String content;

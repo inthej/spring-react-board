@@ -6,12 +6,17 @@
 
     <select id="selectBoardsWithKeyword" resultType="com.board.backend.model.BoardDto$Response">
         SELECT
-            *
-        FROM board
-        WHERE 1 = 1
-        <if test="keyword != null and keyword != ''">
-            AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
-        </if>
+            t.*
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY id) as rownum,
+                board.*
+            FROM board
+            WHERE 1 = 1
+            <if test="keyword != null and keyword != ''">
+                AND title LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        ) AS t
     </select>
 
     <select id="selectBoardById" resultType="com.board.backend.model.BoardDto$Response">
