@@ -16,7 +16,7 @@ const Board = () => {
   })
   const [pageList, setPageList] = useState([])
 
-  const fetchData = useCallback(
+  const search = useCallback(
     async (searchKeyword = '') => {
       try {
         const response = await BoardService.list(searchKeyword, page)
@@ -30,7 +30,7 @@ const Board = () => {
 
   // 첫 렌더링 때 한 번만 API 호출
   useEffect(() => {
-    fetchData()
+    search()
       .then((data) => setPageList(data.list))
       .catch((err) => {
         setPageList([])
@@ -41,7 +41,7 @@ const Board = () => {
           searchInputRef.current.focus()
         }
       })
-  }, [fetchData, handleError])
+  }, [search, handleError])
 
   useEffect(() => {
     if (error && error.message) {
@@ -50,9 +50,9 @@ const Board = () => {
     }
   }, [error, clearError])
 
-  const search = useCallback(
+  const searchKeyword = useCallback(
     async (inputKeyword) => {
-      fetchData(inputKeyword)
+      search(inputKeyword)
         .then((data) => setPageList(data.list))
         .catch((err) => {
           setPageList([])
@@ -64,7 +64,7 @@ const Board = () => {
           }
         })
     },
-    [fetchData, handleError],
+    [search, handleError],
   )
 
   const handleKeywordChange = useCallback((e) => {
@@ -74,15 +74,15 @@ const Board = () => {
   const handleSearchEnter = useCallback(
     (e) => {
       if (e.key === 'Enter') {
-        search(keyword)
+        searchKeyword(keyword)
       }
     },
-    [keyword, search],
+    [keyword, searchKeyword],
   )
 
   const handleSearchClick = useCallback(async () => {
-    search(keyword)
-  }, [keyword, search])
+    searchKeyword(keyword)
+  }, [keyword, searchKeyword])
 
   const handleAddClick = useCallback(() => {
     navigateTo(`/board/${AppTypes.PageMode.add}`)
