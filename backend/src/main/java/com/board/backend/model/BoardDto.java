@@ -19,7 +19,6 @@ public class BoardDto {
     @Getter
     @Setter
     public static class Response {
-        private Long rownum;
         private long id;
         private String title;
         private String content;
@@ -37,6 +36,12 @@ public class BoardDto {
     public static class Detail extends BoardDto.Response {
         @JsonIgnore
         private String password;
+    }
+
+    @Getter
+    @Setter
+    public static class ListItem extends BoardDto.Response {
+        private Long rownum;
     }
 
     @Getter
@@ -87,8 +92,8 @@ public class BoardDto {
 
     @Getter
     @Setter
-    public static class ResponseList extends PageListDto.Response<BoardDto.Response> {
-        public ResponseList(long total, int pages, List<BoardDto.Response> list) {
+    public static class ResponseList extends PageListDto.Response<BoardDto.ListItem> {
+        public ResponseList(long total, int pages, List<BoardDto.ListItem> list) {
             super(total, pages, list);
         }
     }

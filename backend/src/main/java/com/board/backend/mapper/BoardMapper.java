@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
 
-    List<BoardDto.Response> selectBoardsWithKeyword(@Param("keyword") String keyword);
+    List<BoardDto.ListItem> selectBoardsWithKeyword(@Param("keyword") String keyword);
     BoardDto.Response selectBoardById(long id);
 
     BoardDto.Detail selectBoardDetailById(long id);

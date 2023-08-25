@@ -28,7 +28,7 @@ public class BoardServiceImpl implements BoardService {
         final SqlOrderBuilder order = SqlOrderBuilder.createOrder(form.getOrder(), form.getDirection());
         PageHelper.orderBy(order.getSql());
 
-        final List<BoardDto.Response> list = boardMapper.selectBoardsWithKeyword(form.getKeyword());
+        final List<BoardDto.ListItem> list = boardMapper.selectBoardsWithKeyword(form.getKeyword());
         final PageInfo<BoardDto.Response> pageInfo = new PageInfo<>(list);
 
         return new BoardDto.ResponseList(pageInfo.getTotal(), pageInfo.getPages(), list);

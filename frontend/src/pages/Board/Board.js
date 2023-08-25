@@ -34,7 +34,7 @@ const Board = () => {
       .then((data) => setPageList(data.list))
       .catch((err) => {
         setPageList([])
-        handleError(err.response)
+        handleError(err)
       })
       .finally(() => {
         if (searchInputRef.current) {
@@ -56,7 +56,7 @@ const Board = () => {
         .then((data) => setPageList(data.list))
         .catch((err) => {
           setPageList([])
-          handleError(err.response)
+          handleError(err)
         })
         .finally(() => {
           if (searchInputRef.current) {

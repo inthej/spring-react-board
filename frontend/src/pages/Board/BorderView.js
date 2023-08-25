@@ -98,16 +98,18 @@ const BorderView = () => {
         await PromiseUtils.wait(1_000)
 
         if (currentMode === AppTypes.PageMode.add) {
-          await BoardService.create(payload)
+          const { success, error } = await BoardService.create(payload)
+          if (!success) throw error
           navigateTo('/board')
         }
 
         if (currentMode === AppTypes.PageMode.edit) {
-          await BoardService.update(id, payload)
+          const { success, error } = await BoardService.update(id, payload)
+          if (!success) throw error
           navigateBack()
         }
       } catch (err) {
-        handleError(err.response)
+        handleError(err)
       }
     },
     [currentMode, id, navigateTo, navigateBack, handleError],

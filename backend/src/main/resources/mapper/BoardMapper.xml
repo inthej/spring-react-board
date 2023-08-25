@@ -4,7 +4,7 @@
 
 <mapper namespace="com.board.backend.mapper.BoardMapper">
 
-    <select id="selectBoardsWithKeyword" resultType="com.board.backend.model.BoardDto$Response">
+    <select id="selectBoardsWithKeyword" resultType="com.board.backend.model.BoardDto$ListItem">
         SELECT
             t.*
         FROM (
