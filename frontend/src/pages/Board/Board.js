@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { AppConstants, AppTypes } from '../../common'
 import { useAppNavigate, useErrorHandler } from '../../common/hooks'
@@ -8,32 +9,43 @@ import './Board.css'
 const Board = () => {
   const { navigateTo } = useAppNavigate()
   const { error, handleError, clearError } = useErrorHandler()
-  const [keyword, setKeyword] = useState('')
   const searchInputRef = useRef(null)
-  const [page] = useState({
+  const [page, setPage] = useState({
     page: 1,
     size: AppConstants.DEFAULT_PAGE_SIZE,
+    keyword: '',
   })
-  const [pageList, setPageList] = useState([])
 
-  const search = useCallback(
-    async (searchKeyword = '') => {
-      try {
-        const response = await BoardService.list(searchKeyword, page)
-        return response.data
-      } catch (e) {
-        throw e
-      }
-    },
-    [page],
-  )
+  const [pageList, setPageList] = useState({
+    total: 0,
+    pages: 0,
+    list: [],
+  })
+
+  const debounceKeywordChange = useCallback(_.debounce(changeKeyword, 300), [])
+  function changeKeyword(keyword) {
+    setPage((prevPage) => ({
+      ...prevPage,
+      page: 1,
+      keyword,
+    }))
+  }
+
+  const search = useCallback(async () => {
+    try {
+      const response = await BoardService.list(page)
+      return response.data
+    } catch (err) {
+      throw err
+    }
+  }, [page])
 
   // 첫 렌더링 때 한 번만 API 호출
   useEffect(() => {
     search()
-      .then((data) => setPageList(data.list))
+      .then((data) => setPageList(data))
       .catch((err) => {
-        setPageList([])
+        setPageList((prevPageList) => prevPageList)
         handleError(err)
       })
       .finally(() => {
@@ -48,86 +60,97 @@ const Board = () => {
       alert(error.message)
       clearError()
     }
-  }, [error, clearError])
+  }, [clearError, error])
 
-  const searchKeyword = useCallback(
-    async (inputKeyword) => {
-      search(inputKeyword)
-        .then((data) => setPageList(data.list))
-        .catch((err) => {
-          setPageList([])
-          handleError(err)
-        })
-        .finally(() => {
-          if (searchInputRef.current) {
-            searchInputRef.current.focus()
-          }
-        })
+  const handleKeywordChange = useCallback(
+    (e) => {
+      const keyword = e.target.value
+      debounceKeywordChange(keyword)
     },
-    [search, handleError],
+    [debounceKeywordChange],
   )
-
-  const handleKeywordChange = useCallback((e) => {
-    setKeyword(e.target.value)
-  }, [])
 
   const handleSearchEnter = useCallback(
     (e) => {
       if (e.key === 'Enter') {
-        searchKeyword(keyword)
+        search()
       }
     },
-    [keyword, searchKeyword],
+    [search],
   )
 
-  const handleSearchClick = useCallback(async () => {
-    searchKeyword(keyword)
-  }, [keyword, searchKeyword])
-
-  const handleAddClick = useCallback(() => {
+  const handleAddBtnClick = useCallback(() => {
     navigateTo(`/board/${AppTypes.PageMode.add}`)
   }, [navigateTo])
 
-  const handleRowClick = useCallback(
+  const handleRowSelect = useCallback(
     (id) => {
       navigateTo(`/board/view/${id}`)
     },
     [navigateTo],
   )
 
+  const handlePrevBtnClick = useCallback(() => {
+    if (page.page > 1) {
+      setPage((prevPage) => ({
+        ...prevPage,
+        page: prevPage.page - 1,
+      }))
+    }
+  }, [page])
+
+  const handleNextBtnClick = useCallback(() => {
+    if (page.page < pageList.pages) {
+      setPage((prevPage) => ({
+        ...prevPage,
+        page: prevPage.page + 1,
+      }))
+    }
+  }, [page, pageList.pages])
+
   return (
     <div className="board-container">
-      <div className="board-actions">
-        <input type="text" placeholder="검색어를 입력하세요..." className="search-input" onChange={handleKeywordChange} onKeyDown={handleSearchEnter} ref={searchInputRef} />
-        <button className="search-btn" onClick={handleSearchClick}>
-          검색
+      <div className="board-header">
+        <div className="board-actions">
+          <input type="text" placeholder="검색어를 입력하세요..." className="search-input" onChange={handleKeywordChange} onKeyDown={handleSearchEnter} ref={searchInputRef} />
+          <button className="add-btn" onClick={handleAddBtnClick}>
+            글쓰기
+          </button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>작성일</th>
+              <th>조회수</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pageList.list.map((post) => (
+              <tr onClick={() => handleRowSelect(post.id)} key={post.id}>
+                <td>{post.rownum}</td>
+                <td className="title">{ValueUtils.nvl(post.title)}</td>
+                <td>{ValueUtils.nvl(post.writer)}</td>
+                <td>{ValueUtils.nvl(post.created_dt)}</td>
+                <td>{ValueUtils.nvl(post.view_count, 0)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="board-footer">
+        <button className="page-btn" onClick={handlePrevBtnClick} disabled={page.page <= 1}>
+          &lt;
         </button>
-        <button className="add-btn" onClick={handleAddClick}>
-          글쓰기
+        <span>
+          {page.page} / {pageList.pages}
+        </span>
+        <button className="page-btn" onClick={handleNextBtnClick} disabled={page.page >= pageList.pages}>
+          &gt;
         </button>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회수</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pageList.map((post) => (
-            <tr onClick={() => handleRowClick(post.id)} key={post.id}>
-              <td>{post.rownum}</td>
-              <td className="title">{ValueUtils.nvl(post.title)}</td>
-              <td>{ValueUtils.nvl(post.writer)}</td>
-              <td>{ValueUtils.nvl(post.created_dt)}</td>
-              <td>{ValueUtils.nvl(post.view_count, 0)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   )
 }

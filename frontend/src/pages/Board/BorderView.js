@@ -28,8 +28,8 @@ const BorderView = () => {
     try {
       const response = await BoardService.get(id)
       return response.data
-    } catch (e) {
-      throw e
+    } catch (err) {
+      throw err
     }
   }, [id])
 
@@ -46,7 +46,7 @@ const BorderView = () => {
           })
         })
         .catch((err) => {
-          handleError(err.response)
+          handleError(err)
         })
     }
   }, [id, currentMode, search, setValue, handleError])

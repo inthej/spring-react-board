@@ -11,6 +11,8 @@ $ yarn add react-helmet
 $ yarn add styled-components styled-reset
 $ yarn add react-hook-form
 $ yarn add axios
+$ yarn add clsx
+$ yarn add lodash
 ```
 
 ## Reference

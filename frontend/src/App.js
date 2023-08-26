@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
+    font-size: small;
     font-family: Arial, Helvetica, sans-serif;
   }
 `

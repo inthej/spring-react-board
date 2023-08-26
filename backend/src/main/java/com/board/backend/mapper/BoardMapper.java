@@ -21,4 +21,6 @@ public interface BoardMapper {
     void updateBoardById(@Param("id") long id, @Param("form") BoardDto.Update form);
 
     void deleteBoardById(@Param("id") long id);
+
+    void incrementViewCountById(@Param("id") long id);
 }

@@ -60,6 +60,12 @@
         WHERE id = #{id}
     </update>
 
+    <update id="incrementViewCountById">
+        UPDATE board
+        SET view_count = view_count + 1
+        WHERE id = #{id}
+    </update>
+
     <delete id="deleteBoardById" parameterType="long">
         DELETE FROM board
         WHERE id = #{id}

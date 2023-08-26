@@ -3,8 +3,8 @@ import HttpClient from './HttpClient'
 const BASE_URL = 'http://localhost:8080/board'
 
 const BoardService = {
-  list: async (keyword, form) => {
-    const url = `${BASE_URL}/list?page=${form.page}&size=${form.size}&keyword=${keyword}`
+  list: async (form) => {
+    const url = `${BASE_URL}/list?page=${form.page}&size=${form.size}&keyword=${form.keyword}`
     return await HttpClient.get(url)
   },
   get: async (id) => {
