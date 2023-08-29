@@ -71,6 +71,17 @@ const BorderView = () => {
     setCurrentMode(AppTypes.PageMode.edit)
   }, [])
 
+  const handleDeleteClick = useCallback(async () => {
+    if (window.confirm('정말로 이 게시물을 삭제하시겠습니다?')) {
+      try {
+        await BoardService.delete(id)
+        navigateBack()
+      } catch (err) {
+        handleError(err)
+      }
+    }
+  }, [handleError, id, navigateBack])
+
   const handleCancelClick = useCallback(
     (e) => {
       e.preventDefault()
@@ -196,7 +207,11 @@ const BorderView = () => {
           {currentMode === AppTypes.PageMode.view && (
             <>
               <button type="button" className="list-btn" onClick={handleListClick}>
-                목록으로
+                목록
+              </button>
+
+              <button type="button" className="delete-btn" onClick={handleDeleteClick}>
+                삭제
               </button>
 
               <button type="button" className="edit-btn" onClick={handleEditClick}>

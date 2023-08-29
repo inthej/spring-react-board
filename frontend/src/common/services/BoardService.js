@@ -20,7 +20,7 @@ const BoardService = {
     return await HttpClient.put(url, form)
   },
   delete: async (id) => {
-    const url = BASE_URL
+    const url = `${BASE_URL}/${id}`
     return await HttpClient.delete(url)
   },
 }
