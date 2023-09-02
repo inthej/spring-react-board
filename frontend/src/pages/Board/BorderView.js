@@ -210,13 +210,15 @@ const BorderView = () => {
                 목록
               </button>
 
-              <button type="button" className="delete-btn" onClick={handleDeleteClick}>
-                삭제
-              </button>
+              <div className="form-modify-actions">
+                <button type="button" className="delete-btn" onClick={handleDeleteClick}>
+                  삭제
+                </button>
 
-              <button type="button" className="edit-btn" onClick={handleEditClick}>
-                편집
-              </button>
+                <button type="button" className="edit-btn" onClick={handleEditClick}>
+                  편집
+                </button>
+              </div>
             </>
           )}
 
@@ -243,6 +245,13 @@ const BorderView = () => {
       </form>
 
       <div className="comments-section">
+        <div className="comments-list">
+          <div className="comment">
+            <div className="comment-author">작성자: 김나리</div>
+            <div className="comment-text">This is a comment.</div>
+          </div>
+        </div>
+
         <div className="comment-form">
           <div className="comment-user-group">
             <input type="text" placeholder="작성자명" className="comment-author-input" />
@@ -250,30 +259,6 @@ const BorderView = () => {
           </div>
           <textarea placeholder="댓글을 입력하세요..."></textarea>
           <button className="submit-comment">등록</button>
-        </div>
-
-        <div className="comments-list">
-          <div className="comment">
-            <div className="comment-author">작성자: 김나리</div>
-            <div className="comment-text">This is a comment.</div>
-            <button className="reply-btn">답글</button>
-          </div>
-
-          <div className="replies">
-            <div className="reply">
-              <div className="reply-author">작성자: 이나리</div>
-              <div className="reply-text">This is a reply to the above comment.</div>
-            </div>
-          </div>
-
-          <div className="reply-form">
-            <div className="reply-user-group">
-              <input type="text" placeholder="작성자명" className="reply-author-input" />
-              <input type="password" placeholder="비밀번호" className="reply-password-input" />
-            </div>
-            <textarea placeholder="답글을 입력하세요..."></textarea>
-            <button className="submit-reply">등록</button>
-          </div>
         </div>
       </div>
     </div>

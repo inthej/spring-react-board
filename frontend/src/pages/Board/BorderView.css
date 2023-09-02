@@ -1,9 +1,9 @@
 .board-view-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /*align-items: center;*/
   width: 100%;
-  max-width: 800px;
+  max-width: 600px;
   margin: 20px auto;
 }
 
@@ -39,6 +39,10 @@ textarea {
   justify-content: space-between;
   align-items: center;
   gap: 10px; /* 버튼들 사이의 간격 추가 */
+}
+
+.delete-btn {
+  margin-right: 10px;
 }
 
 .list-btn, .edit-btn, .cancel-btn, .submit-btn, .delete-btn {
@@ -139,29 +143,20 @@ input[aria-invalid="false"], textarea[aria-invalid="false"] {
   background-color: #ffffff;
 }
 
-.reply-form {
-  border: 1px solid #888;
-  padding: 10px;
-  margin: 10px 20px;
-  background-color: #f7f7f7;
-}
-
-.comment-form,
-.reply-form {
+.comment-form {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
 }
 
-.comment-form input, .reply-form input {
+.comment-form input {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
 }
 
-.comment-form textarea,
-.reply-form textarea {
+.comment-form textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
@@ -169,8 +164,7 @@ input[aria-invalid="false"], textarea[aria-invalid="false"] {
   resize: vertical;
 }
 
-.comment-form .submit-comment,
-.reply-form .submit-reply {
+.comment-form .submit-comment, .submit-reply {
   padding: 5px 15px;
   background-color: #007BFF;
   color: #fff;
@@ -179,8 +173,7 @@ input[aria-invalid="false"], textarea[aria-invalid="false"] {
   transition: background-color 0.3s;
 }
 
-.comment-form .submit-comment:hover,
-.reply-form .submit-reply:hover {
+.comment-form .submit-comment:hover, .submit-reply:hover {
   background-color: #0056b3;
 }
 
@@ -196,35 +189,8 @@ input[aria-invalid="false"], textarea[aria-invalid="false"] {
   position: relative;
 }
 
-.comment .comment-author,
-.reply .reply-author {
+.comment .comment-author {
   font-weight: bold;
-}
-
-.reply-btn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  background-color: #ddd;
-  padding: 5px;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.3s;
-}
-
-.reply-btn:hover {
-  background-color: #bbb;
-}
-
-.replies {
-  margin-top: 10px;
-  margin-left: 20px;
-}
-
-.reply {
-  border-left: 1px solid #ccc;
-  padding-left: 10px;
-  margin-top: 10px;
 }
 
 .comment-user-group {
@@ -233,17 +199,11 @@ input[aria-invalid="false"], textarea[aria-invalid="false"] {
   margin-bottom: 10px; /* 간격 조절 */
 }
 
-.reply-user-group {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px; /* 간격 조절 */
-}
-
-.comment-author-input, .reply-author-input {
+.comment-author-input {
   flex: 1;
   margin-right: 10px; /* 오른쪽 간격 추가 */
 }
 
-.comment-password-input, .reply-password-input {
+.comment-password-input {
   flex: 1;
 }
