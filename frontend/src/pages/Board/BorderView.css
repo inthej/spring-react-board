@@ -226,3 +226,24 @@ input[aria-invalid="false"], textarea[aria-invalid="false"] {
   padding-left: 10px;
   margin-top: 10px;
 }
+
+.comment-user-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px; /* 간격 조절 */
+}
+
+.reply-user-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px; /* 간격 조절 */
+}
+
+.comment-author-input, .reply-author-input {
+  flex: 1;
+  margin-right: 10px; /* 오른쪽 간격 추가 */
+}
+
+.comment-password-input, .reply-password-input {
+  flex: 1;
+}

@@ -244,8 +244,10 @@ const BorderView = () => {
 
       <div className="comments-section">
         <div className="comment-form">
-          <input type="text" placeholder="작성자명" className="comment-author-input" />
-          <input type="password" placeholder="비밀번호" className="comment-password-input" />
+          <div className="comment-user-group">
+            <input type="text" placeholder="작성자명" className="comment-author-input" />
+            <input type="password" placeholder="비밀번호" className="comment-password-input" />
+          </div>
           <textarea placeholder="댓글을 입력하세요..."></textarea>
           <button className="submit-comment">등록</button>
         </div>
@@ -265,8 +267,10 @@ const BorderView = () => {
           </div>
 
           <div className="reply-form">
-            <input type="text" placeholder="작성자명" className="reply-author-input" />
-            <input type="password" placeholder="비밀번호" className="reply-password-input" />
+            <div className="reply-user-group">
+              <input type="text" placeholder="작성자명" className="reply-author-input" />
+              <input type="password" placeholder="비밀번호" className="reply-password-input" />
+            </div>
             <textarea placeholder="답글을 입력하세요..."></textarea>
             <button className="submit-reply">등록</button>
           </div>
