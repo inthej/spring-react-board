@@ -135,7 +135,6 @@ const BorderView = () => {
 
   return (
     <div className="board-view-container">
-      <h2>글쓰기</h2>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="input-group">
           <label htmlFor="title">제목</label>
@@ -244,23 +243,30 @@ const BorderView = () => {
         </div>
       </form>
 
-      <div className="comments-section">
-        <div className="comments-list">
-          <div className="comment">
-            <div className="comment-author">작성자: 김나리</div>
-            <div className="comment-text">This is a comment.</div>
-          </div>
-        </div>
+      {currentMode === AppTypes.PageMode.view && (
+        <div className="comments-section">
+          <div className="comments-list">
+            <div className="comment">
+              <div className="comment-author">작성자: 김나리</div>
+              <div className="comment-text">This is a comment.</div>
+            </div>
 
-        <div className="comment-form">
-          <div className="comment-user-group">
-            <input type="text" placeholder="작성자명" className="comment-author-input" />
-            <input type="password" placeholder="비밀번호" className="comment-password-input" />
+            <div className="comment">
+              <div className="comment-author">작성자: 김나리</div>
+              <div className="comment-text">This is a comment.</div>
+            </div>
           </div>
-          <textarea placeholder="댓글을 입력하세요..."></textarea>
-          <button className="submit-comment">등록</button>
+
+          <div className="comment-form">
+            <div className="comment-user-group">
+              <input type="text" placeholder="작성자명" className="comment-author-input" />
+              <input type="password" placeholder="비밀번호" className="comment-password-input" />
+            </div>
+            <textarea placeholder="댓글을 입력하세요..."></textarea>
+            <button className="submit-comment">등록</button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

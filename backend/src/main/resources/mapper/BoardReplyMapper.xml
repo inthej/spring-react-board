@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.board.backend.mapper.BoardMapper">
+
+    <select id="selectBoardReplys" resultType="com.board.backend.model.BoardReplyDto$ListItem">
+        SELECT t.*
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY id) as rownum,
+                board_reply.*
+            FROM board_reply
+        ) AS t
+    </select>
+
+    <select id="selectBoardReplyById" resultType="com.board.backend.model.BoardReplyDto$Response">
+        SELECT id,
+               bid,
+               content,
+               writer,
+               created_id,
+               created_dt,
+               modified_dt
+        FROM board_reply
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectBoardDetailById" resultType="com.board.backend.model.BoardReplyDto$Detail">
+        SELECT id,
+               bid,
+               content,
+               writer,
+               password,
+               created_id,
+               created_dt,
+               modified_dt
+        FROM board_reply
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertBoardReply" parameterType="com.board.backend.model.BoardReplyDto$Create" keyProperty="form.id" useGeneratedKeys="true">
+        INSERT INTO board_reply (bid, content, writer, password, created_id)
+        VALUES (#{bid}, #{form.content}, #{form.writer}, #{form.password}, #{form.created_id})
+    </insert>
+
+    <update id="updateBoardReplyById" parameterType="com.board.backend.model.BoardReplyDto$Update">
+        UPDATE board_reply
+        SET content=#{form.content},
+            writer=#{form.writer},
+            password=#{form.password}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteBoardReplyById" parameterType="long">
+        DELETE FROM board_reply
+        WHERE id = #{id}
+    </delete>
+</mapper>
