@@ -2,7 +2,9 @@ package com.board.backend.controller;
 
 import com.board.backend.common.ErrorCode;
 import com.board.backend.model.BoardDto;
+import com.board.backend.model.BoardReplyDto;
 import com.board.backend.model.ResponseModel;
+import com.board.backend.service.BoardReplyService;
 import com.board.backend.service.BoardService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private BoardReplyService boardReplyService;
 
     @GetMapping("/hi")
     public ResponseEntity hi() {
@@ -67,6 +72,78 @@ public class BoardController {
             return ResponseEntity.ok().body(responseModel);
         }
         final ResponseModel<BoardDto.Response> responseModel = ResponseModel.success(response);
+        return ResponseEntity.ok().body(responseModel);
+    }
+
+    @GetMapping("/{id}/replies")
+    public ResponseEntity replies(@PathVariable long id, BoardReplyDto.RequestList form) {
+        final BoardDto.Response boardResponse = boardService.get(id);
+        if (boardResponse == null) {
+            final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
+            return ResponseEntity.ok().body(responseModel);
+        }
+        final BoardReplyDto.ResponseList list = boardReplyService.list(id, form);
+        final ResponseModel<BoardReplyDto.ResponseList> responseModel = ResponseModel.success(list);
+        return ResponseEntity.ok().body(responseModel);
+    }
+
+    @GetMapping("/{id}/reply/{rid}")
+    public ResponseEntity getReply(@PathVariable long id, @PathVariable long rid) {
+        final BoardDto.Response boardResponse = boardService.get(id);
+        if (boardResponse == null) {
+            final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
+            return ResponseEntity.ok().body(responseModel);
+        }
+        final BoardReplyDto.Response response = boardReplyService.get(rid);
+        if (response == null) {
+            final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_REPLY_NOT_FOUND);
+            return ResponseEntity.ok().body(responseModel);
+        }
+        final ResponseModel<BoardReplyDto.Response> responseModel = ResponseModel.success(response);
+        return ResponseEntity.ok().body(responseModel);
+    }
+
+    @PostMapping("/{id}/reply")
+    public ResponseEntity createReply(@PathVariable long id, @Valid @RequestBody BoardReplyDto.Create form) {
+        final BoardDto.Response boardResponse = boardService.get(id);
+        if (boardResponse == null) {
+            final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
+            return ResponseEntity.ok().body(responseModel);
+        }
+        final BoardReplyDto.Response response = boardReplyService.insert(id, form);
+        final ResponseModel<BoardReplyDto.Response> responseModel = ResponseModel.success(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseModel);
+    }
+
+    @PutMapping("/{id}/reply/{rid}")
+    public ResponseEntity updateReply(@PathVariable long id, @PathVariable long rid, @Valid @RequestBody BoardReplyDto.Update form) {
+        final BoardDto.Response boardResponse = boardService.get(id);
+        if (boardResponse == null) {
+            final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
+            return ResponseEntity.ok().body(responseModel);
+        }
+        final BoardReplyDto.Response response = boardReplyService.update(rid, form);
+        if (response == null) {
+            final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_REPLY_NOT_FOUND);
+            return ResponseEntity.ok().body(responseModel);
+        }
+        final ResponseModel<BoardReplyDto.Response> responseModel = ResponseModel.success(response);
+        return ResponseEntity.ok().body(responseModel);
+    }
+
+    @DeleteMapping("/{id}/reply/{rid}")
+    public ResponseEntity delete(@PathVariable long id, @PathVariable long rid) {
+        final BoardDto.Response boardResponse = boardService.get(id);
+        if (boardResponse == null) {
+            final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
+            return ResponseEntity.ok().body(responseModel);
+        }
+        final BoardReplyDto.Response response = boardReplyService.delete(rid);
+        if (response == null) {
+            final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_REPLY_NOT_FOUND);
+            return ResponseEntity.ok().body(responseModel);
+        }
+        final ResponseModel<BoardReplyDto.Response> responseModel = ResponseModel.success(response);
         return ResponseEntity.ok().body(responseModel);
     }
 }

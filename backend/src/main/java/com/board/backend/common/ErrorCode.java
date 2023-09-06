@@ -14,7 +14,8 @@ public enum ErrorCode {
     INVALID_ARGUMENT("잘못된 인자 전달됨"),
     PASSWORD_MISMATCH("비밀번호 불일치"),
     // DB
-    BOARD_NOT_FOUND("글을 찾을 수 없음");
+    BOARD_NOT_FOUND("글을 찾을 수 없음"),
+    BOARD_REPLY_NOT_FOUND("댓글을 찾을 수 없음");
 
     private String message;
 }

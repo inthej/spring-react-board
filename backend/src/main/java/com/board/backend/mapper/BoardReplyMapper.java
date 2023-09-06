@@ -17,7 +17,7 @@ public interface BoardReplyMapper {
     BoardReplyDto.Detail selectBoardReplyDetailById(@Param("id") long id);
 
     @Options(useGeneratedKeys = true, keyProperty = "form.id")
-    void insertBoardReply(@Param("form") BoardReplyDto.Create form);
+    void insertBoardReply(@Param("bid") long bid, @Param("form") BoardReplyDto.Create form);
 
     void updateBoardReplyById(@Param("id") long id, @Param("form") BoardReplyDto.Update form);
 

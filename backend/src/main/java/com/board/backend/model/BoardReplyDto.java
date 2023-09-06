@@ -47,8 +47,6 @@ public class BoardReplyDto {
     public static class Create {
         private Long id;
 
-        private long bid;
-
         @NotBlank(message = "댓글 내용을 입력하세요")
         private String content;
 
