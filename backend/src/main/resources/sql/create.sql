@@ -23,7 +23,7 @@ create table t_env
 ) engine InnoDB
   DEFAULT charset = utf8 comment ='환경값';
 
-CREATE TABLE `board_reply`
+CREATE TABLE `board_comment`
 (
     `id`          bigint unsigned                                               NOT NULL AUTO_INCREMENT COMMENT '댓글 번호',
     `bid`         bigint                                                        NOT NULL COMMENT '게시물 번호',
@@ -35,7 +35,7 @@ CREATE TABLE `board_reply`
     `nodified_dt` datetime                                                      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일자',
     PRIMARY KEY (`id`),
     KEY `bid` (`bid`),
-    CONSTRAINT `board_reply_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `board` (`id`)
+    CONSTRAINT `board_comment_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `board` (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;

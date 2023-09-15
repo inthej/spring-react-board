@@ -9,8 +9,8 @@
         FROM (
             SELECT
                 ROW_NUMBER() OVER (ORDER BY id) as rownum,
-                board_reply.*
-            FROM board_reply
+                board_comment.*
+            FROM board_comment
             WHERE bid = #{bid}
         ) AS t
     </select>
@@ -23,7 +23,7 @@
                created_id,
                created_dt,
                modified_dt
-        FROM board_reply
+        FROM board_comment
         WHERE id = #{id}
     </select>
 
@@ -36,17 +36,17 @@
                created_id,
                created_dt,
                modified_dt
-        FROM board_reply
+        FROM board_comment
         WHERE id = #{id}
     </select>
 
     <insert id="insertBoardComment" parameterType="com.board.backend.model.BoardCommentDto$Create" keyProperty="form.id" useGeneratedKeys="true">
-        INSERT INTO board_reply (bid, content, writer, password, created_id)
+        INSERT INTO board_comment(bid, content, writer, password, created_id)
         VALUES (#{bid}, #{form.content}, #{form.writer}, #{form.password}, #{form.created_id})
     </insert>
 
     <update id="updateBoardCommentById" parameterType="com.board.backend.model.BoardCommentDto$Update">
-        UPDATE board_reply
+        UPDATE board_comment
         SET content=#{form.content},
             writer=#{form.writer},
             password=#{form.password}
@@ -54,12 +54,12 @@
     </update>
 
     <delete id="deleteBoardCommentById" parameterType="long">
-        DELETE FROM board_reply
+        DELETE FROM board_comment
         WHERE id = #{id}
     </delete>
 
     <delete id="deleteAllByBoardId" parameterType="long">
-        DELETE FROM board_reply
+        DELETE FROM board_comment
         WHERE bid = #{bid}
     </delete>
 </mapper>

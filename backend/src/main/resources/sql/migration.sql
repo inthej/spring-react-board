@@ -26,3 +26,7 @@ CREATE TABLE `board_reply`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 update t_env set val = '20230906' where name = 'MIGRATION';
+
+-- 20230916
+alter table board_reply rename board_comment;
+update t_env set val = '20230916' where name = 'MIGRATION'

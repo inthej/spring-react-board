@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e8d2392-d935-46cf-afee-1c0df79903a0" name="Changes" comment="update: README.md 파일" />
+    <list default="true" id="7e8d2392-d935-46cf-afee-1c0df79903a0" name="Changes" comment="update: README.md 파일">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/mapper/BoardCommentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/mapper/BoardCommentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/sql/create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/sql/create.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/sql/migration.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/sql/migration.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,6 +61,7 @@
       <workItem from="1692490154272" duration="202000" />
       <workItem from="1692622312078" duration="13000" />
       <workItem from="1693314534582" duration="97000" />
+      <workItem from="1694819939314" duration="37000" />
     </task>
     <task id="LOCAL-00001" summary="update: README.md 파일">
       <option name="closed" value="true" />
