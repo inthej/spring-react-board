@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 import { AppTypes } from '../../common'
-import { useAppNavigate, useErrorHandler } from '../../common/hooks'
+import { useAppNavigate, useErrorHandler, useWindowActions } from '../../common/hooks'
 import { BoardCommentService, BoardService } from '../../common/services'
 import PromiseUtils from '../../common/utils/PromiseUtils'
 import './BorderView.css'
@@ -12,6 +12,7 @@ const BorderView = () => {
   const { mode, id } = useParams() // mode: AppTypes.PageMode
   const [currentMode, setCurrentMode] = useState(mode || AppTypes.PageMode.view)
   // hooks
+  const { windowReload, windowConfirm } = useWindowActions()
   const { navigateBack, navigateTo } = useAppNavigate()
   const { error, handleError, clearError } = useErrorHandler()
   // post
@@ -108,7 +109,7 @@ const BorderView = () => {
   }, [])
 
   const handleDeleteClick = useCallback(async () => {
-    if (window.confirm('정말로 이 게시물을 삭제하시겠습니다?')) {
+    if (windowConfirm('정말로 이 게시물을 삭제하시겠습니다?')) {
       try {
         await BoardService.delete(id)
         navigateBack()
@@ -116,7 +117,7 @@ const BorderView = () => {
         handleError(err)
       }
     }
-  }, [handleError, id, navigateBack])
+  }, [handleError, id, navigateBack, windowConfirm])
 
   const handleCancelClick = useCallback(
     (e) => {
@@ -171,12 +172,12 @@ const BorderView = () => {
         await PromiseUtils.wait(1_000)
         const { success, error } = await BoardCommentService.create(id, payload)
         if (!success) throw error
-        window.location.reload()
+        windowReload()
       } catch (err) {
         handleError(err)
       }
     },
-    [id, handleError],
+    [id, windowReload, handleError],
   )
 
   const checkError = useCallback(
