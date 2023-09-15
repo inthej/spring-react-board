@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class BoardReplyDto {
+public class BoardCommentDto {
     @Getter
     @Setter
     public static class Response {
@@ -31,14 +31,14 @@ public class BoardReplyDto {
 
     @Getter
     @Setter
-    public static class Detail extends BoardReplyDto.Response {
+    public static class Detail extends BoardCommentDto.Response {
         @JsonIgnore
         private String password;
     }
 
     @Getter
     @Setter
-    public static class ListItem extends BoardReplyDto.Response {
+    public static class ListItem extends BoardCommentDto.Response {
         private Long rownum;
     }
 
@@ -81,7 +81,7 @@ public class BoardReplyDto {
 
     @Getter
     @Setter
-    public static class ResponseList extends PageListDto.Response<BoardReplyDto.ListItem> {
+    public static class ResponseList extends PageListDto.Response<BoardCommentDto.ListItem> {
         public ResponseList(long total, int pages, List<ListItem> list) {
             super(total, pages, list);
         }

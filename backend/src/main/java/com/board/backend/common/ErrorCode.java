@@ -15,7 +15,7 @@ public enum ErrorCode {
     PASSWORD_MISMATCH("비밀번호 불일치"),
     // DB
     BOARD_NOT_FOUND("글을 찾을 수 없음"),
-    BOARD_REPLY_NOT_FOUND("댓글을 찾을 수 없음");
+    BOARD_COMMENT_NOT_FOUND("댓글을 찾을 수 없음");
 
     private String message;
 }

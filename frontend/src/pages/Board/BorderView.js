@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 import { AppTypes } from '../../common'
 import { useAppNavigate, useErrorHandler } from '../../common/hooks'
-import { BoardService } from '../../common/services'
+import { BoardCommentService, BoardService } from '../../common/services'
 import PromiseUtils from '../../common/utils/PromiseUtils'
 import './BorderView.css'
 
@@ -14,19 +14,38 @@ const BorderView = () => {
   // hooks
   const { navigateBack, navigateTo } = useAppNavigate()
   const { error, handleError, clearError } = useErrorHandler()
-  // form
+  // post
   const {
     register,
     handleSubmit,
     setValue,
-    watch,
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm()
-  const values = watch()
+  // comment
+  const [commentList, setCommentList] = useState({
+    total: 0,
+    pages: 0,
+    list: [],
+  })
+  const {
+    register: commentRegister,
+    handleSubmit: handleCommentSubmit,
+    formState: { isSubmitting: isCommentSubmitting, isSubmitted: isCommentSubmitted, errors: commentErrors },
+  } = useForm()
+  const commentAuthorInputRef = useRef(null)
 
   const search = useCallback(async () => {
     try {
       const response = await BoardService.get(id)
+      return response.data
+    } catch (err) {
+      throw err
+    }
+  }, [id])
+
+  const searchComments = useCallback(async () => {
+    try {
+      const response = await BoardCommentService.list(id)
       return response.data
     } catch (err) {
       throw err
@@ -57,6 +76,23 @@ const BorderView = () => {
       clearError()
     }
   }, [error, clearError])
+
+  useEffect(() => {
+    if (currentMode === AppTypes.PageMode.view) {
+      searchComments()
+        .then((data) => setCommentList(data))
+        .catch((err) => {
+          setCommentList((prevReplyList) => prevReplyList)
+          handleError(err)
+        })
+    }
+  }, [currentMode, handleError, searchComments])
+
+  useEffect(() => {
+    if (commentAuthorInputRef.current && currentMode === AppTypes.PageMode.view) {
+      commentAuthorInputRef.current.focus()
+    }
+  }, [currentMode])
 
   const handleListClick = useCallback(
     (e) => {
@@ -126,11 +162,35 @@ const BorderView = () => {
     [currentMode, id, navigateTo, navigateBack, handleError],
   )
 
-  const checkAriaInvalid = useCallback(
+  const onReplySubmit = useCallback(
+    async (data) => {
+      const payload = {
+        ...data,
+      }
+      try {
+        await PromiseUtils.wait(1_000)
+        const { success, error } = await BoardCommentService.create(id, payload)
+        if (!success) throw error
+        window.location.reload()
+      } catch (err) {
+        handleError(err)
+      }
+    },
+    [id, handleError],
+  )
+
+  const checkError = useCallback(
     (fieldError) => {
       return isSubmitted ? !!fieldError : undefined
     },
     [isSubmitted],
+  )
+
+  const checkCommentError = useCallback(
+    (fieldError) => {
+      return isCommentSubmitted ? !!fieldError : undefined
+    },
+    [isCommentSubmitted],
   )
 
   return (
@@ -142,12 +202,11 @@ const BorderView = () => {
             type="text"
             id="title"
             placeholder="제목을 입력하세요..."
-            value={values.title || ''}
             readOnly={currentMode === AppTypes.PageMode.view}
             {...register('title', {
               required: '제목은 필수 입력입니다.',
             })}
-            aria-invalid={checkAriaInvalid(errors.title)}
+            aria-invalid={checkError(errors.title)}
           />
           {errors.title && <small role="alert">{errors.title.message}</small>}
         </div>
@@ -158,12 +217,11 @@ const BorderView = () => {
             type="text"
             id="author"
             placeholder="작성자명"
-            value={values.author || ''}
             readOnly={currentMode === AppTypes.PageMode.view}
             {...register('author', {
               required: '작성자는 필수 입력입니다.',
             })}
-            aria-invalid={checkAriaInvalid(errors.author)}
+            aria-invalid={checkError(errors.author)}
           />
           {errors.author && <small role="alert">{errors.author.message}</small>}
         </div>
@@ -175,12 +233,11 @@ const BorderView = () => {
               type="password"
               id="password"
               placeholder="비밀번호를 입력하세요..."
-              value={values.password || ''}
               readOnly={currentMode === AppTypes.PageMode.view}
               {...register('password', {
                 required: '비밀번호는 필수 입력입니다.',
               })}
-              aria-invalid={checkAriaInvalid(errors.password)}
+              aria-invalid={checkError(errors.password)}
             />
             {errors.password && <small role="alert">{errors.password.message}</small>}
           </div>
@@ -192,12 +249,11 @@ const BorderView = () => {
             id="content"
             rows="10"
             placeholder="내용을 작성하세요..."
-            value={values.content || ''}
             readOnly={currentMode === AppTypes.PageMode.view}
             {...register('content', {
               required: '글 내용이 작성되지 않았습니다.',
             })}
-            aria-invalid={checkAriaInvalid(errors.content)}
+            aria-invalid={checkError(errors.content)}
           ></textarea>
           {errors.content && <small role="alert">{errors.content.message}</small>}
         </div>
@@ -246,25 +302,50 @@ const BorderView = () => {
       {currentMode === AppTypes.PageMode.view && (
         <div className="comments-section">
           <div className="comments-list">
-            <div className="comment">
-              <div className="comment-author">작성자: 김나리</div>
-              <div className="comment-text">This is a comment.</div>
-            </div>
-
-            <div className="comment">
-              <div className="comment-author">작성자: 김나리</div>
-              <div className="comment-text">This is a comment.</div>
-            </div>
+            {commentList.list.map((reply) => (
+              <div className="comment" key={reply.id}>
+                <div className="comment-author">작성자: {reply.writer}</div>
+                <div className="comment-text">{reply.content}</div>
+              </div>
+            ))}
           </div>
 
-          <div className="comment-form">
+          <form noValidate onSubmit={handleCommentSubmit(onReplySubmit)} className="comment-form">
             <div className="comment-user-group">
-              <input type="text" placeholder="작성자명" className="comment-author-input" />
-              <input type="password" placeholder="비밀번호" className="comment-password-input" />
+              <input
+                className="comment-author-input"
+                type="text"
+                placeholder="작성자명"
+                {...commentRegister('writer', {
+                  required: '댓글 작성자는 필수 입력입니다.',
+                })}
+                aria-invalid={checkCommentError(commentErrors.writer)}
+                ref={(e) => {
+                  commentRegister('writer').ref(e) // react-hook-form 을 위한 ref
+                  commentAuthorInputRef.current = e // 외부 ref
+                }}
+              />
+              <input
+                className="comment-password-input"
+                type="password"
+                placeholder="비밀번호"
+                {...commentRegister('password', {
+                  required: '비밀번호는 필수 입력입니다.',
+                })}
+                aria-invalid={checkCommentError(commentErrors.password)}
+              />
             </div>
-            <textarea placeholder="댓글을 입력하세요..."></textarea>
-            <button className="submit-comment">등록</button>
-          </div>
+            <textarea
+              placeholder="댓글을 입력하세요..."
+              {...commentRegister('content', {
+                required: '댓글 내용이 작성되지 않았습니다.',
+              })}
+              aria-invalid={checkCommentError(commentErrors.content)}
+            ></textarea>
+            <button className="submit-comment" disabled={isCommentSubmitting}>
+              등록
+            </button>
+          </form>
         </div>
       )}
     </div>

@@ -2,6 +2,7 @@ package com.board.backend.service;
 
 import com.board.backend.common.SqlOrderBuilder;
 import com.board.backend.exception.PasswordMismatchException;
+import com.board.backend.mapper.BoardCommentMapper;
 import com.board.backend.mapper.BoardMapper;
 import com.board.backend.model.BoardDto;
 import com.github.pagehelper.PageHelper;
@@ -17,6 +18,9 @@ public class BoardServiceImpl implements BoardService {
 
     @Autowired
     private BoardMapper boardMapper;
+
+    @Autowired
+    private BoardCommentMapper boardCommentMapper;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -72,6 +76,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardDto.Response delete(long id) {
         final BoardDto.Response response = boardMapper.selectBoardById(id);
+        boardCommentMapper.deleteAllByBoardId(id);
         boardMapper.deleteBoardById(id);
         return response;
     }
