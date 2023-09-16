@@ -39,13 +39,15 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDto.Response get(long id) {
+    public BoardDto.Response get(long id, boolean incrementViewCount) {
         final BoardDto.Response response = boardMapper.selectBoardById(id);
         if (response == null) {
             return null;
         }
 
-        boardMapper.incrementViewCountById(id);
+        if (incrementViewCount) {
+            boardMapper.incrementViewCountById(id);
+        }
 
         response.setView_count(response.getView_count() + 1);
         return response;

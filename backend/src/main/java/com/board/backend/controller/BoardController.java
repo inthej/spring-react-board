@@ -37,7 +37,7 @@ public class BoardController {
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable long id) {
-        final BoardDto.Response response = boardService.get(id);
+        final BoardDto.Response response = boardService.get(id, true);
         if (response == null) {
             final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
             return ResponseEntity.ok().body(responseModel);
@@ -77,7 +77,7 @@ public class BoardController {
 
     @GetMapping("/{id}/comments")
     public ResponseEntity comments(@PathVariable long id, BoardCommentDto.RequestList form) {
-        final BoardDto.Response boardResponse = boardService.get(id);
+        final BoardDto.Response boardResponse = boardService.get(id, false);
         if (boardResponse == null) {
             final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
             return ResponseEntity.ok().body(responseModel);
@@ -89,7 +89,7 @@ public class BoardController {
 
     @GetMapping("/{id}/comment/{cid}")
     public ResponseEntity getComment(@PathVariable long id, @PathVariable long cid) {
-        final BoardDto.Response boardResponse = boardService.get(id);
+        final BoardDto.Response boardResponse = boardService.get(id, false);
         if (boardResponse == null) {
             final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
             return ResponseEntity.ok().body(responseModel);
@@ -105,7 +105,7 @@ public class BoardController {
 
     @PostMapping("/{id}/comment")
     public ResponseEntity createComment(@PathVariable long id, @Valid @RequestBody BoardCommentDto.Create form) {
-        final BoardDto.Response boardResponse = boardService.get(id);
+        final BoardDto.Response boardResponse = boardService.get(id, false);
         if (boardResponse == null) {
             final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
             return ResponseEntity.ok().body(responseModel);
@@ -117,7 +117,7 @@ public class BoardController {
 
     @PutMapping("/{id}/comment/{cid}")
     public ResponseEntity updateComment(@PathVariable long id, @PathVariable long cid, @Valid @RequestBody BoardCommentDto.Update form) {
-        final BoardDto.Response boardResponse = boardService.get(id);
+        final BoardDto.Response boardResponse = boardService.get(id, false);
         if (boardResponse == null) {
             final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
             return ResponseEntity.ok().body(responseModel);
@@ -133,7 +133,7 @@ public class BoardController {
 
     @DeleteMapping("/{id}/comment/{cid}")
     public ResponseEntity deleteComment(@PathVariable long id, @PathVariable long cid) {
-        final BoardDto.Response boardResponse = boardService.get(id);
+        final BoardDto.Response boardResponse = boardService.get(id, false);
         if (boardResponse == null) {
             final ResponseModel responseModel = ResponseModel.failure(ErrorCode.BOARD_NOT_FOUND);
             return ResponseEntity.ok().body(responseModel);

@@ -147,13 +147,13 @@ const BorderView = () => {
 
         if (currentMode === AppTypes.PageMode.add) {
           const { success, error } = await BoardService.create(payload)
-          if (!success) throw error
+          if (!success) handleError(error)
           navigateTo('/board')
         }
 
         if (currentMode === AppTypes.PageMode.edit) {
           const { success, error } = await BoardService.update(id, payload)
-          if (!success) throw error
+          if (!success) handleError(error)
           navigateBack()
         }
       } catch (err) {
@@ -171,7 +171,7 @@ const BorderView = () => {
       try {
         await PromiseUtils.wait(1_000)
         const { success, error } = await BoardCommentService.create(id, payload)
-        if (!success) throw error
+        if (!success) handleError(error)
         windowReload()
       } catch (err) {
         handleError(err)
