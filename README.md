@@ -12,9 +12,9 @@
 
 ### 2. 프로젝트 기능
 
-- **게시글 CRUD** (완료)
-- **댓글 기능** (완료)
-- **로그인/인증**
+- **게시글 CRUD**
+- **댓글 기능**
+- **로그인/인증**(예정)
 
 ### 3. 사용 기술
 
@@ -43,3 +43,4 @@
 - [React Router 에서 Navigate 함수를 확장하여 사용하기](https://inthej.com/83)
 - [Spring에서 잘못된 메시지 요청 핸들링하기](https://inthej.tistory.com/84)
 - [동적 라우팅 사용 페이지 모드 관리](https://inthej.tistory.com/85)
+- [React Hook Form 에서 useRef 사용하기](https://inthej.com/87)
