@@ -32,7 +32,7 @@ CREATE TABLE `board_comment`
     `password`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci          DEFAULT NULL COMMENT '비밀번호',
     `created_id`  bigint                                                                 DEFAULT NULL COMMENT '작성자id',
     `created_dt`  datetime                                                      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '작성일자',
-    `nodified_dt` datetime                                                      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일자',
+    `modified_dt` datetime                                                      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일자',
     PRIMARY KEY (`id`),
     KEY `bid` (`bid`),
     CONSTRAINT `board_comment_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `board` (`id`)

@@ -1,13 +1,13 @@
 -- 20230823
-create table t_env
+CREATE TABLE t_env
 (
     name varchar(10) not null comment '코드',
     val  varchar(20) not null comment '값',
     primary key (name)
 ) engine InnoDB DEFAULT charset=utf8 comment='환경값';
 
-insert into t_env(name, val)
-values ('MIGRATION', '20230823');
+INSERT INTO t_env(name, val)
+VALUES ('MIGRATION', '20230823');
 
 -- 20230905
 CREATE TABLE `board_reply`
@@ -25,8 +25,12 @@ CREATE TABLE `board_reply`
     CONSTRAINT `board_reply_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `board` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-update t_env set val = '20230906' where name = 'MIGRATION';
+UPDATE t_env SET val = '20230906' WHERE name = 'MIGRATION';
 
 -- 20230916
-alter table board_reply rename board_comment;
-update t_env set val = '20230916' where name = 'MIGRATION'
+ALTER TABLE board_reply rename board_comment;
+UPDATE t_env SET val = '20230916' WHERE name = 'MIGRATION'
+
+-- 20230918
+ALTER TABLE board_comment CHANGE nodified_dt modified_dt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일자';
+UPDATE t_env SET val = '20230918' WHERE name = 'MIGRATION'

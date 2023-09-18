@@ -83,7 +83,7 @@ const BorderView = () => {
       searchComments()
         .then((data) => setCommentList(data))
         .catch((err) => {
-          setCommentList((prevReplyList) => prevReplyList)
+          setCommentList((prevCommentList) => prevCommentList)
           handleError(err)
         })
     }
@@ -163,7 +163,7 @@ const BorderView = () => {
     [currentMode, id, navigateTo, navigateBack, handleError],
   )
 
-  const onReplySubmit = useCallback(
+  const onCommentSubmit = useCallback(
     async (data) => {
       const payload = {
         ...data,
@@ -303,15 +303,15 @@ const BorderView = () => {
       {currentMode === AppTypes.PageMode.view && (
         <div className="comments-section">
           <div className="comments-list">
-            {commentList.list.map((reply) => (
-              <div className="comment" key={reply.id}>
-                <div className="comment-author">작성자: {reply.writer}</div>
-                <div className="comment-text">{reply.content}</div>
+            {commentList.list.map((comment) => (
+              <div className="comment" key={comment.id}>
+                <div className="comment-author">작성자: {comment.writer}</div>
+                <div className="comment-text">{comment.content}</div>
               </div>
             ))}
           </div>
 
-          <form noValidate onSubmit={handleCommentSubmit(onReplySubmit)} className="comment-form">
+          <form noValidate onSubmit={handleCommentSubmit(onCommentSubmit)} className="comment-form">
             <div className="comment-user-group">
               <input
                 className="comment-author-input"
