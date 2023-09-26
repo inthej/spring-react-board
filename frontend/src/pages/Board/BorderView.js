@@ -153,7 +153,10 @@ const BorderView = () => {
 
         if (currentMode === AppTypes.PageMode.edit) {
           const { success, error } = await BoardService.update(id, payload)
-          if (!success) handleError(error)
+          if (!success) {
+            handleError(error)
+            return false
+          }
           navigateBack()
         }
       } catch (err) {
