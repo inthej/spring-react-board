@@ -4,9 +4,9 @@ import { AppConstants, AppTypes } from '../../common'
 import { useAppNavigate, useErrorHandler } from '../../common/hooks'
 import { BoardService } from '../../common/services'
 import ValueUtils from '../../common/utils/ValueUtils'
-import './Board.css'
+import './BoardList.css'
 
-const Board = () => {
+const BoardList = () => {
   const { navigateTo } = useAppNavigate()
   const { error, handleError, clearError } = useErrorHandler()
   const searchInputRef = useRef(null)
@@ -22,6 +22,7 @@ const Board = () => {
     list: [],
   })
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceKeywordChange = useCallback(_.debounce(changeKeyword, 300), [])
   function changeKeyword(keyword) {
     setPage((prevPage) => ({
@@ -155,4 +156,4 @@ const Board = () => {
   )
 }
 
-export default Board
+export default BoardList
