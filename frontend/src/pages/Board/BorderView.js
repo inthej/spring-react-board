@@ -145,9 +145,12 @@ const BorderView = () => {
       try {
         await PromiseUtils.wait(1_000)
 
-        if (currentMode === AppTypes.PageMode.add) {
+        if (currentMode === AppTypes.PageMode.create) {
           const { success, error } = await BoardService.create(payload)
-          if (!success) handleError(error)
+          if (!success) {
+            handleError(error)
+            return false
+          }
           navigateTo('/board')
         }
 
@@ -258,7 +261,7 @@ const BorderView = () => {
               required: '글 내용이 작성되지 않았습니다.',
             })}
             aria-invalid={checkError(errors.content)}
-          ></textarea>
+          />
           {errors.content && <small role="alert">{errors.content.message}</small>}
         </div>
 
@@ -287,7 +290,7 @@ const BorderView = () => {
                 취소
               </button>
 
-              {currentMode === AppTypes.PageMode.add && (
+              {currentMode === AppTypes.PageMode.create && (
                 <button type="submit" className="submit-btn" disabled={isSubmitting}>
                   등록
                 </button>
@@ -345,7 +348,7 @@ const BorderView = () => {
                 required: '댓글 내용이 작성되지 않았습니다.',
               })}
               aria-invalid={checkCommentError(commentErrors.content)}
-            ></textarea>
+            />
             <button className="submit-comment" disabled={isCommentSubmitting}>
               등록
             </button>

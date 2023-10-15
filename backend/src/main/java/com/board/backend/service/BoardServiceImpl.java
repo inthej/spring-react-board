@@ -29,7 +29,7 @@ public class BoardServiceImpl implements BoardService {
     public BoardDto.ResponseList list(BoardDto.RequestList form) {
         PageHelper.startPage(form.getPage(), form.getSize());
 
-        final SqlOrderBuilder order = SqlOrderBuilder.createOrder(form.getOrder(), form.getDirection());
+        final SqlOrderBuilder order = SqlOrderBuilder.create(form.getOrder(), form.getDirection());
         PageHelper.orderBy(order.getSql());
 
         final List<BoardDto.ListItem> list = boardMapper.selectBoardsWithKeyword(form.getKeyword());

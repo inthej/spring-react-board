@@ -80,8 +80,8 @@ const BoardList = () => {
     [search],
   )
 
-  const handleAddBtnClick = useCallback(() => {
-    navigateTo(`/board/${AppTypes.PageMode.add}`)
+  const handleCreateBtnClick = useCallback(() => {
+    navigateTo(`/board/${AppTypes.PageMode.create}`)
   }, [navigateTo])
 
   const handleRowSelect = useCallback(
@@ -114,7 +114,7 @@ const BoardList = () => {
       <div className="board-header">
         <div className="board-actions">
           <input type="text" placeholder="검색어를 입력하세요..." className="search-input" onChange={handleKeywordChange} onKeyDown={handleSearchEnter} ref={searchInputRef} />
-          <button className="add-btn" onClick={handleAddBtnClick}>
+          <button className="create-btn" onClick={handleCreateBtnClick}>
             글쓰기
           </button>
         </div>

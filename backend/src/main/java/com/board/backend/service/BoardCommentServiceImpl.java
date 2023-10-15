@@ -25,7 +25,7 @@ public class BoardCommentServiceImpl implements BoardCommentService {
     public BoardCommentDto.ResponseList list(long bid, BoardCommentDto.RequestList form) {
         PageHelper.startPage(form.getPage(), form.getSize());
 
-        final SqlOrderBuilder order = SqlOrderBuilder.createOrder(form.getOrder(), form.getDirection());
+        final SqlOrderBuilder order = SqlOrderBuilder.create(form.getOrder(), form.getDirection());
         PageHelper.orderBy(order.getSql());
 
         final List<BoardCommentDto.ListItem> list = boardCommentMapper.selectBoardComments(bid);
@@ -35,11 +35,7 @@ public class BoardCommentServiceImpl implements BoardCommentService {
 
     @Override
     public BoardCommentDto.Response get(long id) {
-        final BoardCommentDto.Response response = boardCommentMapper.selectBoardCommentById(id);
-        if (response == null) {
-            return null;
-        }
-        return response;
+        return boardCommentMapper.selectBoardCommentById(id);
     }
 
     @Override

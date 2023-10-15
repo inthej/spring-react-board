@@ -11,7 +11,7 @@ public class SqlOrderBuilder {
         this.direction = ValidationUtil.validateNonNull(direction, "Direction cannot be null");
     }
 
-    public static SqlOrderBuilder createOrder(Sort.Order order, Sort.Direction direction) {
+    public static SqlOrderBuilder create(Sort.Order order, Sort.Direction direction) {
         return new SqlOrderBuilder(order, direction);
     }
 
