@@ -2,6 +2,13 @@
 
 전반적인 웹의 기본 소양이 되는 게시판 프로젝트입니다.
 
+## 스크린샷
+<div>
+    <img src='./board_list.png' /> 
+    <br/>
+    <img src='./board_view.png' />
+</div>
+
 ---
 
 ## 들어가며
