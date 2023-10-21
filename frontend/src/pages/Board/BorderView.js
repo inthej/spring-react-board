@@ -6,13 +6,14 @@ import { useAppNavigate, useErrorHandler, useWindowActions } from '../../common/
 import { BoardCommentService, BoardService } from '../../common/services'
 import PromiseUtils from '../../common/utils/PromiseUtils'
 import './BorderView.css'
+import ValueUtils from '../../common/utils/ValueUtils'
 
 const BorderView = () => {
   // params
   const { mode, id } = useParams() // mode: AppTypes.PageMode
   const [currentMode, setCurrentMode] = useState(mode || AppTypes.PageMode.view)
   // hooks
-  const { windowReload, windowConfirm } = useWindowActions()
+  const { windowReload, windowConfirm, windowAlert } = useWindowActions()
   const { navigateBack, navigateTo } = useAppNavigate()
   const { error, handleError, clearError } = useErrorHandler()
   // post
@@ -54,6 +55,13 @@ const BorderView = () => {
   }, [id])
 
   useEffect(() => {
+    if (!id && currentMode === AppTypes.PageMode.view) {
+      windowAlert('유효하지 않은 접근입니다.')
+      navigateTo('/board/list')
+    }
+  }, [currentMode, id, navigateTo, windowAlert])
+
+  useEffect(() => {
     if (id && currentMode === AppTypes.PageMode.view) {
       search()
         .then((data) => {
@@ -79,7 +87,7 @@ const BorderView = () => {
   }, [error, clearError])
 
   useEffect(() => {
-    if (currentMode === AppTypes.PageMode.view) {
+    if (id && currentMode === AppTypes.PageMode.view) {
       searchComments()
         .then((data) => setCommentList(data))
         .catch((err) => {

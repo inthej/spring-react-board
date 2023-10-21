@@ -9,11 +9,15 @@ const useWindowActions = () => {
     return window.confirm(message)
   }, [])
 
+  const windowAlert = useCallback((message) => {
+    return window.alert(message)
+  }, [])
+
   const scrollToTop = useCallback(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  return { windowReload, windowConfirm, scrollToTop }
+  return { windowReload, windowConfirm, windowAlert, scrollToTop }
 }
 
 export default useWindowActions
