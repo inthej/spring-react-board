@@ -9,10 +9,10 @@ const MainLayout = (props) => {
   return (
     <div className="main-layout-container">
       <Topnav className="topnav">
-        <NavLink to="/home" activeClassName="active">
+        <NavLink to="/home" activeclassname="active">
           Home
         </NavLink>
-        <NavLink to="/board" activeClassName="active">
+        <NavLink to="/board" activeclassname="active">
           Board
         </NavLink>
         <Link to="/login" className="split">
