@@ -18,8 +18,8 @@ public class BoardCommentDto {
     @Getter
     @Setter
     public static class Response {
-        private long id;
-        private long bid;
+        private long no;
+        private long bno;
         private String writer;
         private String content;
         private Long created_id;
@@ -45,6 +45,8 @@ public class BoardCommentDto {
     @Getter
     @Setter
     public static class Create {
+        private Long no;
+
         @Size(max = 255)
         @NotBlank(message = "댓글 작성자를 입력하세요")
         private String writer;

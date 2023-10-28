@@ -85,8 +85,8 @@ const BoardList = () => {
   }, [navigateTo])
 
   const handleRowSelect = useCallback(
-    (id) => {
-      navigateTo(`/board/view/${id}`)
+    (no) => {
+      navigateTo(`/board/view/${no}`)
     },
     [navigateTo],
   )
@@ -130,7 +130,7 @@ const BoardList = () => {
           </thead>
           <tbody>
             {pageList.list.map((post) => (
-              <tr onClick={() => handleRowSelect(post.id)} key={post.id}>
+              <tr onClick={() => handleRowSelect(post.no)} key={post.no}>
                 <td>{post.rownum}</td>
                 <td className="title">{ValueUtils.nvl(post.title)}</td>
                 <td>{ValueUtils.nvl(post.writer)}</td>

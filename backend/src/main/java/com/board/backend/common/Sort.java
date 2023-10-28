@@ -2,7 +2,7 @@ package com.board.backend.common;
 
 public interface Sort {
     enum Order {
-        id,
+        no,
         title,
         content,
         writer,

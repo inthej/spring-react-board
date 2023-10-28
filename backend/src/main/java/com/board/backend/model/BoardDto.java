@@ -19,7 +19,7 @@ public class BoardDto {
     @Getter
     @Setter
     public static class Response {
-        private long id;
+        private long no;
         private String title;
         private String content;
         private String writer;
@@ -47,7 +47,7 @@ public class BoardDto {
     @Getter
     @Setter
     public static class Create {
-        private Long id;
+        private Long no;
 
         @Size(max = 255)
         @NotBlank(message = "제목을 입력하세요")

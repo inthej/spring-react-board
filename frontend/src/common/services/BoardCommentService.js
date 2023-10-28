@@ -4,24 +4,24 @@ import HttpClient from './HttpClient'
 const SERVICE_URL = `${AppConstants.BASE_URL}/board`
 
 const BoardCommentService = {
-  list: async (id) => {
-    const url = `${SERVICE_URL}/${id}/comments`
+  list: async (bno, form) => {
+    const url = `${SERVICE_URL}/${bno}/comments`
+    return await HttpClient.get(url, form)
+  },
+  get: async (bno, form) => {
+    const url = `${SERVICE_URL}/${bno}/comment/${form.no}`
     return await HttpClient.get(url)
   },
-  get: async (id, form) => {
-    const url = `${SERVICE_URL}/${id}/comment/${form.id}`
-    return await HttpClient.get(url)
-  },
-  create: async (id, form) => {
-    const url = `${SERVICE_URL}/${id}/comment`
+  create: async (bno, form) => {
+    const url = `${SERVICE_URL}/${bno}/comment`
     return await HttpClient.post(url, form)
   },
-  update: async (id, form) => {
-    const url = `${SERVICE_URL}/${id}/comment`
+  update: async (bno, form) => {
+    const url = `${SERVICE_URL}/${bno}/comment`
     return await HttpClient.put(url, form)
   },
-  delete: async (id, cid) => {
-    const url = `${SERVICE_URL}/${id}/comment/${cid}`
+  delete: async (bno, no) => {
+    const url = `${SERVICE_URL}/${bno}/comment/${no}`
     return await HttpClient.delete(url)
   },
 }

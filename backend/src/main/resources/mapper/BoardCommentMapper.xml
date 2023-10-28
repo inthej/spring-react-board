@@ -8,28 +8,28 @@
         SELECT t.*
         FROM (
             SELECT
-                ROW_NUMBER() OVER (ORDER BY id) as rownum,
+                ROW_NUMBER() OVER (ORDER BY no) as rownum,
                 board_comment.*
             FROM board_comment
-            WHERE bid = #{bid}
+            WHERE bno = #{bno}
         ) AS t
     </select>
 
     <select id="selectBoardCommentById" resultType="com.board.backend.model.BoardCommentDto$Response">
-        SELECT id,
-               bid,
+        SELECT no,
+               bno,
                content,
                writer,
                created_id,
                created_dt,
                modified_dt
         FROM board_comment
-        WHERE id = #{id}
+        WHERE no = #{no}
     </select>
 
     <select id="selectBoardCommentDetailById" resultType="com.board.backend.model.BoardCommentDto$Detail">
-        SELECT id,
-               bid,
+        SELECT no,
+               bno,
                content,
                writer,
                password,
@@ -37,12 +37,12 @@
                created_dt,
                modified_dt
         FROM board_comment
-        WHERE id = #{id}
+        WHERE no = #{no}
     </select>
 
-    <insert id="insertBoardComment" parameterType="com.board.backend.model.BoardCommentDto$Create" keyProperty="form.id" useGeneratedKeys="true">
-        INSERT INTO board_comment(bid, content, writer, password, created_id)
-        VALUES (#{bid}, #{form.content}, #{form.writer}, #{form.password}, #{form.created_id})
+    <insert id="insertBoardComment" parameterType="com.board.backend.model.BoardCommentDto$Create" keyProperty="form.no" useGeneratedKeys="true">
+        INSERT INTO board_comment(bno, content, writer, password, created_id)
+        VALUES (#{bno}, #{form.content}, #{form.writer}, #{form.password}, #{form.created_id})
     </insert>
 
     <update id="updateBoardCommentById" parameterType="com.board.backend.model.BoardCommentDto$Update">
@@ -50,16 +50,16 @@
         SET content=#{form.content},
             writer=#{form.writer},
             password=#{form.password}
-        WHERE id = #{id}
+        WHERE no = #{no}
     </update>
 
     <delete id="deleteBoardCommentById" parameterType="long">
         DELETE FROM board_comment
-        WHERE id = #{id}
+        WHERE no = #{no}
     </delete>
 
     <delete id="deleteAllByBoardId" parameterType="long">
         DELETE FROM board_comment
-        WHERE bid = #{bid}
+        WHERE bno = #{bno}
     </delete>
 </mapper>

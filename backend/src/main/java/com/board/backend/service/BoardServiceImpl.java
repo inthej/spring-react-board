@@ -39,14 +39,14 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDto.Response get(long id, boolean incrementViewCount) {
-        final BoardDto.Response response = boardMapper.selectBoardById(id);
+    public BoardDto.Response get(long no, boolean incrementViewCount) {
+        final BoardDto.Response response = boardMapper.selectBoardById(no);
         if (response == null) {
             return null;
         }
 
         if (incrementViewCount) {
-            boardMapper.incrementViewCountById(id);
+            boardMapper.incrementViewCountById(no);
         }
 
         response.setView_count(response.getView_count() + 1);
@@ -60,8 +60,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDto.Response update(long id, BoardDto.Update form) {
-        final BoardDto.Detail detail = boardMapper.selectBoardDetailById(id);
+    public BoardDto.Response update(long no, BoardDto.Update form) {
+        final BoardDto.Detail detail = boardMapper.selectBoardDetailById(no);
         if (detail == null) {
             return null;
         }
@@ -70,16 +70,16 @@ public class BoardServiceImpl implements BoardService {
             throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
         }
 
-        boardMapper.updateBoardById(id, form);
+        boardMapper.updateBoardById(no, form);
         modelMapper.map(form, detail);
         return modelMapper.map(detail, BoardDto.Response.class);
     }
 
     @Override
-    public BoardDto.Response delete(long id) {
-        final BoardDto.Response response = boardMapper.selectBoardById(id);
-        boardCommentMapper.deleteAllByBoardId(id);
-        boardMapper.deleteBoardById(id);
+    public BoardDto.Response delete(long no) {
+        final BoardDto.Response response = boardMapper.selectBoardById(no);
+        boardCommentMapper.deleteAllByBoardId(no);
+        boardMapper.deleteBoardById(no);
         return response;
     }
 }

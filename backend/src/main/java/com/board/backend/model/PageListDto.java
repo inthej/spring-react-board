@@ -19,7 +19,7 @@ public class PageListDto {
     public static abstract class Request {
         private int page = AppConstants.DEFAULT_PAGE;
         private int size = AppConstants.DEFAULT_PAGE_SIZE;
-        private Sort.Order order = Sort.Order.id;
+        private Sort.Order order = Sort.Order.no;
         private Sort.Direction direction = Sort.Direction.desc;
 
         public void setPage(int page) {
@@ -31,7 +31,7 @@ public class PageListDto {
         }
 
         public void setOrder(Sort.Order order) {
-            this.order = ObjectUtil.nonEmpty(order) ? order : Sort.Order.id;
+            this.order = ObjectUtil.nonEmpty(order) ? order : Sort.Order.no;
         }
 
         public void setDirection(Sort.Direction direction) {

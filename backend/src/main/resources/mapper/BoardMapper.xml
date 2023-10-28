@@ -9,7 +9,7 @@
             t.*
         FROM (
             SELECT
-                ROW_NUMBER() OVER (ORDER BY id) as rownum,
+                ROW_NUMBER() OVER (ORDER BY no) as rownum,
                 board.*
             FROM board
             WHERE 1 = 1
@@ -20,7 +20,7 @@
     </select>
 
     <select id="selectBoardById" resultType="com.board.backend.model.BoardDto$Response">
-        SELECT id,
+        SELECT no,
                title,
                content,
                writer,
@@ -29,11 +29,11 @@
                created_dt,
                modified_dt
         FROM board
-        WHERE id = #{id}
+        WHERE no = #{no}
     </select>
 
     <select id="selectBoardDetailById" resultType="com.board.backend.model.BoardDto$Detail">
-        SELECT id,
+        SELECT no,
                title,
                content,
                writer,
@@ -43,10 +43,10 @@
                created_dt,
                modified_dt
         FROM board
-        WHERE id = #{id}
+        WHERE no = #{no}
     </select>
 
-    <insert id="insertBoard" parameterType="com.board.backend.model.BoardDto$Create" keyProperty="form.id" useGeneratedKeys="true">
+    <insert id="insertBoard" parameterType="com.board.backend.model.BoardDto$Create" keyProperty="form.no" useGeneratedKeys="true">
         INSERT INTO board (title, content, writer, password, created_id)
         VALUES (#{form.title}, #{form.content}, #{form.writer}, #{form.password}, #{form.created_id})
     </insert>
@@ -57,17 +57,17 @@
             content=#{form.content},
             writer=#{form.writer},
             password=#{form.password}
-        WHERE id = #{id}
+        WHERE no = #{no}
     </update>
 
     <update id="incrementViewCountById">
         UPDATE board
         SET view_count = view_count + 1
-        WHERE id = #{id}
+        WHERE no = #{no}
     </update>
 
     <delete id="deleteBoardById" parameterType="long">
         DELETE FROM board
-        WHERE id = #{id}
+        WHERE no = #{no}
     </delete>
 </mapper>

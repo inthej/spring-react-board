@@ -11,16 +11,16 @@ import java.util.List;
 public interface BoardMapper {
 
     List<BoardDto.ListItem> selectBoardsWithKeyword(@Param("keyword") String keyword);
-    BoardDto.Response selectBoardById(long id);
+    BoardDto.Response selectBoardById(long no);
 
-    BoardDto.Detail selectBoardDetailById(long id);
+    BoardDto.Detail selectBoardDetailById(long no);
 
-    @Options(useGeneratedKeys = true, keyProperty = "form.id")
+    @Options(useGeneratedKeys = true, keyProperty = "form.no")
     void insertBoard(@Param("form") BoardDto.Create form);
 
-    void updateBoardById(@Param("id") long id, @Param("form") BoardDto.Update form);
+    void updateBoardById(@Param("no") long no, @Param("form") BoardDto.Update form);
 
-    void deleteBoardById(@Param("id") long id);
+    void deleteBoardById(@Param("no") long no);
 
-    void incrementViewCountById(@Param("id") long id);
+    void incrementViewCountById(@Param("no") long no);
 }

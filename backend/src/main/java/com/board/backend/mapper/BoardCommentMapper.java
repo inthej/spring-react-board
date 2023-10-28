@@ -10,18 +10,18 @@ import java.util.List;
 @Mapper
 public interface BoardCommentMapper {
 
-    List<BoardCommentDto.ListItem> selectBoardComments(@Param("bid") long bid);
+    List<BoardCommentDto.ListItem> selectBoardComments(@Param("bno") long bno);
 
-    BoardCommentDto.Response selectBoardCommentById(@Param("id") long id);
+    BoardCommentDto.Response selectBoardCommentById(@Param("no") long no);
 
-    BoardCommentDto.Detail selectBoardCommentDetailById(@Param("id") long id);
+    BoardCommentDto.Detail selectBoardCommentDetailById(@Param("no") long no);
 
-    @Options(useGeneratedKeys = true, keyProperty = "form.id")
-    void insertBoardComment(@Param("bid") long bid, @Param("form") BoardCommentDto.Create form);
+    @Options(useGeneratedKeys = true, keyProperty = "form.no")
+    void insertBoardComment(@Param("bno") long bno, @Param("form") BoardCommentDto.Create form);
 
-    void updateBoardCommentById(@Param("id") long id, @Param("form") BoardCommentDto.Update form);
+    void updateBoardCommentById(@Param("no") long no, @Param("form") BoardCommentDto.Update form);
 
-    void deleteBoardCommentById(@Param("id") long id);
+    void deleteBoardCommentById(@Param("no") long no);
 
-    void deleteAllByBoardId(@Param("bid") long bid);
+    void deleteAllByBoardId(@Param("bno") long bno);
 }

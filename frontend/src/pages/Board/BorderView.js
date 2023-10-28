@@ -6,11 +6,10 @@ import { useAppNavigate, useErrorHandler, useWindowActions } from '../../common/
 import { BoardCommentService, BoardService } from '../../common/services'
 import PromiseUtils from '../../common/utils/PromiseUtils'
 import './BorderView.css'
-import ValueUtils from '../../common/utils/ValueUtils'
 
 const BorderView = () => {
   // params
-  const { mode, id } = useParams() // mode: AppTypes.PageMode
+  const { mode, no } = useParams() // mode: AppTypes.PageMode
   const [currentMode, setCurrentMode] = useState(mode || AppTypes.PageMode.view)
   // hooks
   const { windowReload, windowConfirm, windowAlert } = useWindowActions()
@@ -38,31 +37,31 @@ const BorderView = () => {
 
   const search = useCallback(async () => {
     try {
-      const response = await BoardService.get(id)
+      const response = await BoardService.get(no)
       return response.data
     } catch (err) {
       throw err
     }
-  }, [id])
+  }, [no])
 
   const searchComments = useCallback(async () => {
     try {
-      const response = await BoardCommentService.list(id)
+      const response = await BoardCommentService.list(no)
       return response.data
     } catch (err) {
       throw err
     }
-  }, [id])
+  }, [no])
 
   useEffect(() => {
-    if (!id && currentMode === AppTypes.PageMode.view) {
+    if (!no && currentMode === AppTypes.PageMode.view) {
       windowAlert('유효하지 않은 접근입니다.')
       navigateTo('/board/list')
     }
-  }, [currentMode, id, navigateTo, windowAlert])
+  }, [currentMode, no, navigateTo, windowAlert])
 
   useEffect(() => {
-    if (id && currentMode === AppTypes.PageMode.view) {
+    if (no && currentMode === AppTypes.PageMode.view) {
       search()
         .then((data) => {
           Object.keys(data).forEach((key) => {
@@ -77,7 +76,7 @@ const BorderView = () => {
           handleError(err)
         })
     }
-  }, [id, currentMode, search, setValue, handleError])
+  }, [no, currentMode, search, setValue, handleError])
 
   useEffect(() => {
     if (error && error.message) {
@@ -87,7 +86,7 @@ const BorderView = () => {
   }, [error, clearError])
 
   useEffect(() => {
-    if (id && currentMode === AppTypes.PageMode.view) {
+    if (no && currentMode === AppTypes.PageMode.view) {
       searchComments()
         .then((data) => setCommentList(data))
         .catch((err) => {
@@ -95,7 +94,7 @@ const BorderView = () => {
           handleError(err)
         })
     }
-  }, [currentMode, handleError, searchComments])
+  }, [currentMode, handleError, no, searchComments])
 
   useEffect(() => {
     if (commentAuthorInputRef.current && currentMode === AppTypes.PageMode.view) {
@@ -119,13 +118,13 @@ const BorderView = () => {
   const handleDeleteClick = useCallback(async () => {
     if (windowConfirm('정말로 이 게시물을 삭제하시겠습니다?')) {
       try {
-        await BoardService.delete(id)
+        await BoardService.delete(no)
         navigateBack()
       } catch (err) {
         handleError(err)
       }
     }
-  }, [handleError, id, navigateBack, windowConfirm])
+  }, [handleError, no, navigateBack, windowConfirm])
 
   const handleCancelClick = useCallback(
     (e) => {
@@ -163,7 +162,7 @@ const BorderView = () => {
         }
 
         if (currentMode === AppTypes.PageMode.edit) {
-          const { success, error } = await BoardService.update(id, payload)
+          const { success, error } = await BoardService.update(no, payload)
           if (!success) {
             handleError(error)
             return false
@@ -174,7 +173,7 @@ const BorderView = () => {
         handleError(err)
       }
     },
-    [currentMode, id, navigateTo, navigateBack, handleError],
+    [currentMode, no, navigateTo, navigateBack, handleError],
   )
 
   const onCommentSubmit = useCallback(
@@ -184,14 +183,14 @@ const BorderView = () => {
       }
       try {
         await PromiseUtils.wait(1_000)
-        const { success, error } = await BoardCommentService.create(id, payload)
+        const { success, error } = await BoardCommentService.create(no, payload)
         if (!success) handleError(error)
         windowReload()
       } catch (err) {
         handleError(err)
       }
     },
-    [id, windowReload, handleError],
+    [no, windowReload, handleError],
   )
 
   const checkError = useCallback(
@@ -318,7 +317,7 @@ const BorderView = () => {
         <div className="comments-section">
           <div className="comments-list">
             {commentList.list.map((comment) => (
-              <div className="comment" key={comment.id}>
+              <div className="comment" key={comment.no}>
                 <div className="comment-author">작성자: {comment.writer}</div>
                 <div className="comment-text">{comment.content}</div>
               </div>

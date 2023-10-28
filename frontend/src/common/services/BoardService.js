@@ -8,20 +8,20 @@ const BoardService = {
     const url = `${SERVICE_URL}/list`
     return await HttpClient.get(url, form)
   },
-  get: async (id) => {
-    const url = `${SERVICE_URL}/${id}`
+  get: async (no) => {
+    const url = `${SERVICE_URL}/${no}`
     return await HttpClient.get(url)
   },
   create: async (form) => {
     const url = SERVICE_URL
     return await HttpClient.post(url, form)
   },
-  update: async (id, form) => {
-    const url = `${SERVICE_URL}/${id}`
+  update: async (no, form) => {
+    const url = `${SERVICE_URL}/${no}`
     return await HttpClient.put(url, form)
   },
-  delete: async (id) => {
-    const url = `${SERVICE_URL}/${id}`
+  delete: async (no) => {
+    const url = `${SERVICE_URL}/${no}`
     return await HttpClient.delete(url)
   },
 }

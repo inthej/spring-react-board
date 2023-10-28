@@ -22,31 +22,31 @@ public class BoardCommentServiceImpl implements BoardCommentService {
     private ModelMapper modelMapper;
 
     @Override
-    public BoardCommentDto.ResponseList list(long bid, BoardCommentDto.RequestList form) {
+    public BoardCommentDto.ResponseList list(long bno, BoardCommentDto.RequestList form) {
         PageHelper.startPage(form.getPage(), form.getSize());
 
         final SqlOrderBuilder order = SqlOrderBuilder.create(form.getOrder(), form.getDirection());
         PageHelper.orderBy(order.getSql());
 
-        final List<BoardCommentDto.ListItem> list = boardCommentMapper.selectBoardComments(bid);
+        final List<BoardCommentDto.ListItem> list = boardCommentMapper.selectBoardComments(bno);
         final PageInfo<BoardCommentDto.ListItem> pageInfo = new PageInfo<>(list);
         return new BoardCommentDto.ResponseList(pageInfo.getTotal(), pageInfo.getPages(), list);
     }
 
     @Override
-    public BoardCommentDto.Response get(long id) {
-        return boardCommentMapper.selectBoardCommentById(id);
+    public BoardCommentDto.Response get(long no) {
+        return boardCommentMapper.selectBoardCommentById(no);
     }
 
     @Override
-    public BoardCommentDto.Response insert(long bid, BoardCommentDto.Create form) {
-        boardCommentMapper.insertBoardComment(bid, form);
+    public BoardCommentDto.Response insert(long bno, BoardCommentDto.Create form) {
+        boardCommentMapper.insertBoardComment(bno, form);
         return modelMapper.map(form, BoardCommentDto.Response.class);
     }
 
     @Override
-    public BoardCommentDto.Response update(long id, BoardCommentDto.Update form) {
-        final BoardCommentDto.Detail detail = boardCommentMapper.selectBoardCommentDetailById(id);
+    public BoardCommentDto.Response update(long no, BoardCommentDto.Update form) {
+        final BoardCommentDto.Detail detail = boardCommentMapper.selectBoardCommentDetailById(no);
         if (detail == null) {
             return null;
         }
@@ -55,20 +55,20 @@ public class BoardCommentServiceImpl implements BoardCommentService {
             throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
         }
 
-        boardCommentMapper.updateBoardCommentById(id, form);
+        boardCommentMapper.updateBoardCommentById(no, form);
         modelMapper.map(form, detail);
         return modelMapper.map(detail, BoardCommentDto.Response.class);
     }
 
     @Override
-    public BoardCommentDto.Response delete(long id) {
-        final BoardCommentDto.Response response = boardCommentMapper.selectBoardCommentById(id);
-        boardCommentMapper.deleteBoardCommentById(id);
+    public BoardCommentDto.Response delete(long no) {
+        final BoardCommentDto.Response response = boardCommentMapper.selectBoardCommentById(no);
+        boardCommentMapper.deleteBoardCommentById(no);
         return response;
     }
 
     @Override
-    public void deleteAll(long bid) {
-        boardCommentMapper.deleteAllByBoardId(bid);
+    public void deleteAll(long bno) {
+        boardCommentMapper.deleteAllByBoardId(bno);
     }
 }

@@ -32,7 +32,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LayoutWithComponent layout={MainLayout} component={Home} />} />
         <Route path="/board/list" element={<LayoutWithComponent layout={MainLayout} component={BoardList} />} />
-        <Route path="/board/view/:id" element={<LayoutWithComponent layout={MainLayout} component={BoardView} />} />
+        <Route path="/board/view/:no" element={<LayoutWithComponent layout={MainLayout} component={BoardView} />} />
         <Route path="/board/:mode" element={<LayoutWithComponent layout={MainLayout} component={BoardView} />} />
         <Route path="/Login" element={<LayoutWithComponent layout={EmptyLayout} component={Login} />} />
         <Route path="/board" element={<Navigate to="/board/list" replace />} />
