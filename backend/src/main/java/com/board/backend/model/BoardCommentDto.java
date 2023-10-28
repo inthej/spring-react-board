@@ -20,8 +20,8 @@ public class BoardCommentDto {
     public static class Response {
         private long id;
         private long bid;
-        private String content;
         private String writer;
+        private String content;
         private Long created_id;
         @JsonFormat(pattern = AppConstants.DATETIME_FORMAT)
         private LocalDateTime created_dt;
@@ -45,17 +45,15 @@ public class BoardCommentDto {
     @Getter
     @Setter
     public static class Create {
-        private Long id;
-
-        @NotBlank(message = "댓글 내용을 입력하세요")
-        private String content;
-
         @Size(max = 255)
         @NotBlank(message = "댓글 작성자를 입력하세요")
         private String writer;
 
         @Size(max = 255)
         private String password;
+
+        @NotBlank(message = "댓글 내용을 입력하세요")
+        private String content;
 
         private Long created_id;
     }
@@ -63,15 +61,15 @@ public class BoardCommentDto {
     @Getter
     @Setter
     public static class Update {
-        @NotBlank(message = "댓글 내용을 입력하세요")
-        private String content;
-
         @Size(max = 255)
         @NotBlank(message = "댓글 작성자를 입력하세요")
         private String writer;
 
         @Size(max = 255)
         private String password;
+
+        @NotBlank(message = "댓글 내용을 입력하세요")
+        private String content;
     }
 
     @Getter

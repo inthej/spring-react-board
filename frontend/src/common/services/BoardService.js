@@ -5,8 +5,8 @@ const SERVICE_URL = `${AppConstants.BASE_URL}/board`
 
 const BoardService = {
   list: async (form) => {
-    const url = `${SERVICE_URL}/list?page=${form.page}&size=${form.size}&keyword=${form.keyword}`
-    return await HttpClient.get(url)
+    const url = `${SERVICE_URL}/list`
+    return await HttpClient.get(url, form)
   },
   get: async (id) => {
     const url = `${SERVICE_URL}/${id}`
