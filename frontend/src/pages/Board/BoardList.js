@@ -118,6 +118,8 @@ const BoardList = () => {
             글쓰기
           </button>
         </div>
+      </div>
+      <div className="board-content">
         <table>
           <thead>
             <tr>
