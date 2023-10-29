@@ -158,6 +158,8 @@ const BorderView = () => {
             handleError(error)
             return false
           }
+
+          windowAlert('게시물이 등록되었습니다.')
           navigateTo('/board')
         }
 
@@ -167,6 +169,7 @@ const BorderView = () => {
             handleError(error)
             return false
           }
+          windowAlert('게시물이 수정되었습니다.')
           navigateBack()
         }
       } catch (err) {
