@@ -8,6 +8,7 @@ import MainLayout from './layouts/MainLayout'
 import { BoardList, BoardView } from './pages/Board'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -34,7 +35,8 @@ const App = () => {
         <Route path="/board/list" element={<LayoutWithComponent layout={MainLayout} component={BoardList} />} />
         <Route path="/board/view/:no" element={<LayoutWithComponent layout={MainLayout} component={BoardView} />} />
         <Route path="/board/:mode" element={<LayoutWithComponent layout={MainLayout} component={BoardView} />} />
-        <Route path="/Login" element={<LayoutWithComponent layout={EmptyLayout} component={Login} />} />
+        <Route path="/login" element={<LayoutWithComponent layout={EmptyLayout} component={Login} />} />
+        <Route path="/signup" element={<LayoutWithComponent layout={EmptyLayout} component={Signup} />} />
         <Route path="/board" element={<Navigate to="/board/list" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

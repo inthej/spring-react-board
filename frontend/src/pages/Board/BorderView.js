@@ -176,7 +176,7 @@ const BorderView = () => {
         handleError(err)
       }
     },
-    [currentMode, no, navigateTo, navigateBack, handleError],
+    [currentMode, windowAlert, navigateTo, handleError, no, navigateBack],
   )
 
   const onCommentSubmit = useCallback(
